@@ -3,360 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ThumbGrabber V2 - Pro Free SEO Extractor</title>
+<title>SEO Studio - Assets Extractor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#050505;
-    --panel:#080808;
-    --border:#1d1d1d;
-    --red:#ff2d2d;
-    --text:#f4f4f4;
-    --muted:#777;
-    --box-bg:#0d0d0d;
+  :root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --border: #334155;
+    --primary: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
   }
 
-  *{ margin:0; padding:0; box-sizing:border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    min-height: 100vh;
+  body {
+    background-color: var(--bg-main);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    padding: 30px 15px;
   }
 
-  .container{
-    width:min(1200px,90%);
-    margin:auto;
-    padding:60px 0;
+  .wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
-  .badge{
-    display:inline-flex;
-    gap:12px;
-    align-items:center;
-    color:#9a9a9a;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    margin-bottom:25px;
-    font-size: 0.9rem;
+  header {
+    text-align: center;
+    margin-bottom: 40px;
   }
 
-  .badge::before{
-    content:""; width:34px; height:34px; background:var(--red); display:block;
+  header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
   }
 
-  .hero{ display:flex; justify-content:space-between; gap:60px; }
-  .hero-left{ flex:1; }
-  .hero h1{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(60px,8vw,120px);
-    line-height:.9;
-    letter-spacing:2px;
-    font-weight:400;
+  header h1 span { color: var(--primary); }
+  header p { color: var(--text-muted); font-size: 1.1rem; }
+
+  .input-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
   }
 
-  .red{ color:var(--red); }
-  .gray{ color:#666670; }
-
-  .desc{
-    margin-top:35px; color:#9c9c9c; max-width:700px; line-height:1.8; font-size:1.15rem;
+  .input-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
   }
 
-  .status{
-    min-width:250px; border-left:1px solid var(--border); padding-left:40px;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-
-  .status-title{ color:#777; letter-spacing:5px; font-size:.8rem; }
-  .online{ margin-top:15px; font-family:'Bebas Neue',sans-serif; font-size:3rem; }
-  .green{ color:#00d084; }
-  .mini{ margin-top:10px; color:#555; font-size:.75rem; letter-spacing:2px; }
-
-  .panel{
-    margin-top:70px; border:1px solid var(--border); background: var(--panel);
-    display:grid; grid-template-columns:2fr 1fr;
-  }
-
-  .box{ padding:40px; }
-  .box.left-box { border-right:1px solid var(--border); }
-  .box-title{ color:#8a8a8a; font-size:.8rem; letter-spacing:2px; margin-bottom:20px; }
-
-  textarea{
-    width:100%; min-height:150px; background:#000; border:1px solid var(--border);
-    color:#fff; padding:20px; font-size: 1.1rem; font-family:'Inter',sans-serif;
-    resize:none; outline: none;
-  }
-
-  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .card{ background: #0a0a0a; border:1px solid var(--border); padding:22px; cursor:pointer; }
-  .card.active{ background:var(--red); border-color: var(--red); }
-  .card.active .mini { color: #fff; opacity: 0.8; }
-  .card h3{ font-family:'Bebas Neue',sans-serif; font-size:1.8rem; font-weight: 400; }
-
-  .generate{
-    width:100%; margin-top:20px; background:var(--red); border:none; color:#fff;
-    padding:20px; cursor:pointer; font-weight:600; font-family: 'Inter', sans-serif;
-    letter-spacing:3px;
-  }
-
-  .results{
-    margin-top:40px; border:1px solid var(--border); background: var(--panel);
-    min-height:200px; display:flex; align-items:center; justify-content:center;
-    color:#555; text-align:center; padding: 40px;
-  }
-
-  /* --- DIVIDED UI STYLES --- */
-  .seo-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    width: 100%;
-    text-align: left;
-  }
-
-  .preview-zone img {
-    width: 100%; height: auto; border: 1px solid var(--border); margin-bottom: 20px;
-  }
-
-  .data-zone {
+  .input-group {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 16px;
+    background: #0b0f19;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    font-family: inherit;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--primary);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn:hover { background: var(--primary-hover); }
+
+  .output-placeholder {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-muted);
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    font-size: 1.1rem;
+  }
+
+  /* Divided Output Layout */
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  @media (min-width: 768px) {
+    .grid-layout { grid-template-columns: 1fr 1.2fr; }
+  }
+
+  .preview-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 15px;
+  }
+
+  .download-link {
+    display: block;
+    text-align: center;
+    background: #10b981;
+    color: white;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
   }
 
   .data-box {
-    background: var(--box-bg);
+    background: var(--bg-card);
     border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 20px;
-    position: relative;
+    margin-bottom: 20px;
   }
 
-  .data-box-header {
+  .box-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
   }
 
-  .data-label {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-    color: var(--red);
-    font-size: 1.2rem;
+  .box-title {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .copy-btn {
-    background: transparent; border: 1px solid #333; color: #888;
-    padding: 4px 10px; font-size: 0.75rem; cursor: pointer; text-transform: uppercase;
+    background: #334155;
+    border: none;
+    color: var(--text);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
   }
-  .copy-btn:hover { border-color: var(--text); color: var(--text); }
 
-  .data-content {
-    color: #fff; font-size: 1rem; line-height: 1.5;
+  .copy-btn:hover { background: #475569; }
+
+  .content-text {
+    font-size: 1rem;
+    line-height: 1.6;
     word-break: break-word;
   }
 
-  .desc-scroll {
-    max-height: 150px; overflow-y: auto; white-space: pre-wrap; font-size: 0.9rem; color: #ccc;
-  }
-
-  .tag-badge {
-    display: inline-block; background: #1a1a1a; border: 1px solid #333;
-    padding: 5px 10px; margin: 4px; font-size: 0.85rem; color: #aaa;
-  }
-
-  @media (max-width: 900px) {
-    .hero { flex-direction: column; gap: 40px; }
-    .status { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 30px; }
-    .panel { grid-template-columns: 1fr; }
-    .box.left-box { border-right: none; border-bottom: 1px solid var(--border); }
-    .seo-layout { grid-template-columns: 1fr; }
+  .scrollable {
+    max-height: 180px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    color: #cbd5e1;
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  
-  <div class="hero">
-    <div class="hero-left">
-      <div class="badge">THUMBGRABBER / V2</div>
-      <h1>
-        STEAL THE<br>
-        <span class="red">ASSETS.</span>
-        <span class="gray">NOT THE</span><br>
-        <span class="gray">CREDIT.</span>
-      </h1>
-      <p class="desc">
-        Paste any YouTube link. We extract the thumbnail, title, description, category, and tags into organized sections instantly without any API keys.
-      </p>
-    </div>
+<div class="wrapper">
+  <header>
+    <h1>SEO <span>STUDIO</span></h1>
+    <p>Extract YouTube metadata instantly</p>
+  </header>
 
-    <div class="status">
-      <div class="status-title">STATUS</div>
-      <div class="online">
-        <span class="green">■</span> ONLINE
-      </div>
-      <div class="mini">100% FREE NO-KEY EXTRACTOR</div>
+  <div class="input-section">
+    <span class="input-label">Enter YouTube Video Link</span>
+    <div class="input-group">
+      <input type="text" id="video-url" placeholder="https://www.youtube.com/watch?v=...">
+      <button class="btn" id="extract-btn">Extract Assets</button>
     </div>
   </div>
 
-  <div class="panel">
-    <div class="box left-box">
-      <div class="box-title">INPUT TARGET URL</div>
-      <textarea id="yt-link" placeholder="Paste YouTube link here..."></textarea>
-    </div>
-    
-    <div class="box">
-      <div class="box-title">QUALITY SELECT</div>
-      <div class="grid">
-        <div class="card active" data-quality="maxresdefault">
-          <h3>MAX</h3>
-          <div class="mini">1280 x 720</div>
-        </div>
-        <div class="card" data-quality="hqdefault">
-          <h3>HIGH</h3>
-          <div class="mini">480 x 360</div>
-        </div>
-      </div>
-      <button class="generate" id="grab-btn">EXTRACT ALL ASSETS</button>
+  <div id="display-area">
+    <div class="output-placeholder">
+      Paste a link above and click extract to load assets.
     </div>
   </div>
-
-  <div class="results" id="results-area">
-    AWAITING TARGET URL...
-  </div>
-
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const linkInput = document.getElementById('yt-link');
-    const grabBtn = document.getElementById('grab-btn');
-    const resultsArea = document.getElementById('results-area');
-    const cards = document.querySelectorAll('.card');
-    let selectedQuality = 'maxresdefault';
+    const urlInput = document.getElementById('video-url');
+    const extractBtn = document.getElementById('extract-btn');
+    const displayArea = document.getElementById('display-area');
 
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        cards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        selectedQuality = card.dataset.quality;
-      });
-    });
-
-    function extractVideoID(url) {
-      const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i;
-      const match = url.match(regex);
+    function getID(url) {
+      const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i;
+      const match = url.match(reg);
       return match ? match[1] : null;
     }
 
-    window.copyToClipboard = (text, btn) => {
+    window.copyText = (text, btn) => {
       navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = "COPIED!";
-        btn.style.borderColor = "var(--red)";
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.style.borderColor = "#333";
-        }, 1500);
+        const oldText = btn.innerText;
+        btn.innerText = "Copied!";
+        setTimeout(() => { btn.innerText = oldText; }, 1200);
       });
     };
 
-    grabBtn.addEventListener('click', async () => {
-      const url = linkInput.value.trim();
-      const videoId = extractVideoID(url);
+    extractBtn.addEventListener('click', async () => {
+      const url = urlInput.value.trim();
+      const id = getID(url);
 
-      if (!videoId) {
-        resultsArea.innerHTML = '<div style="color: var(--red);">ERROR: INVALID LINK.</div>';
+      if (!id) {
+        displayArea.innerHTML = '<div class="output-placeholder" style="color: #ef4444; border-color: #ef4444;">Error: Please enter a valid YouTube link.</div>';
         return;
       }
 
-      resultsArea.innerHTML = '<div>BYPASSING SECURITY & EXTRACTING METADATA...</div>';
+      displayArea.innerHTML = '<div class="output-placeholder">Processing assets...</div>';
 
       try {
-        // Using a free CORS proxy to scrape the official YouTube page directly
-        const targetUrl = `https://www.youtube.com/watch?v=${videoId}`;
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
-        
-        const response = await fetch(proxyUrl);
-        const data = await response.json();
-        const html = data.contents;
+        // Safe & Stable metadata fetch using NoEmbed (No proxy, no crash)
+        const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
+        const data = await res.json();
 
-        // Extracting Data using smart Regex
-        const titleMatch = html.match(/<meta name="title" content="([^"]+)"/) || html.match(/<title>([^<]+)<\/title>/);
-        const title = titleMatch ? titleMatch[1].replace("&quot;", '"') : "No Title Found";
+        const title = data.title || "No Title Available";
+        const author = data.author_name || "Unknown Channel";
+        const maxThumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 
-        const descMatch = html.match(/<meta name="description" content="([^"]+)"/);
-        const description = descMatch ? descMatch[1] : "No Description Found";
-
-        const categoryMatch = html.match(/<meta itemprop="genre" content="([^"]+)"/);
-        const categoryName = categoryMatch ? categoryMatch[1] : "Entertainment / General";
-
-        const tagsMatch = html.match(/<meta name="keywords" content="([^"]+)"/);
-        let tagsArray = [];
-        if (tagsMatch && tagsMatch[1]) {
-          tagsArray = tagsMatch[1].split(',').map(t => t.trim()).filter(t => t.toLowerCase() !== title.toLowerCase());
-        }
-        const tagsString = tagsArray.join(', ');
-
-        const thumbUrl = `https://img.youtube.com/vi/${videoId}/${selectedQuality}.jpg`;
-
-        // Render Divided UI
-        resultsArea.innerHTML = `
-          <div class="seo-layout">
-            <div class="preview-zone">
-              <img src="${thumbUrl}" alt="Thumbnail">
-              <a href="${thumbUrl}" target="_blank" style="text-decoration:none;" class="generate" style="display:block; text-align:center;">DOWNLOAD IMAGE</a>
+        // Render clean, completely fresh layout
+        displayArea.innerHTML = `
+          <div class="grid-layout">
+            <div class="preview-box">
+              <img src="${maxThumb}" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
+              <a href="${maxThumb}" target="_blank" class="download-link">Open Full Size Image</a>
             </div>
-            
-            <div class="data-zone">
+
+            <div class="info-box">
               <div class="data-box">
-                <div class="data-box-header">
-                  <span class="data-label">Video Title</span>
-                  <button class="copy-btn" onclick="copyToClipboard(\`${title.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`, this)">Copy</button>
+                <div class="box-header">
+                  <span class="box-title">Video Title</span>
+                  <button class="copy-btn" onclick="copyText(\`${title.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`, this)">Copy</button>
                 </div>
-                <div class="data-content">${title}</div>
+                <div class="content-text">${title}</div>
               </div>
 
               <div class="data-box">
-                <div class="data-box-header">
-                  <span class="data-label">Category</span>
-                  <button class="copy-btn" onclick="copyToClipboard('${categoryName}', this)">Copy Info</button>
+                <div class="box-header">
+                  <span class="box-title">Channel Name</span>
+                  <button class="copy-btn" onclick="copyText('${author}', this)">Copy</button>
                 </div>
-                <div class="data-content" style="color: #aaa;">
-                  Category: <span style="color:var(--red); font-weight:600;">${categoryName}</span>
-                </div>
+                <div class="content-text" style="font-weight: 600;">${author}</div>
               </div>
 
               <div class="data-box">
-                <div class="data-box-header">
-                  <span class="data-label">Tags (${tagsArray.length})</span>
-                  <button class="copy-btn" onclick="copyToClipboard(\`${tagsString.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`, this)">Copy All Tags</button>
+                <div class="box-header">
+                  <span class="box-title">Quick Note</span>
                 </div>
-                <div class="data-content">
-                  ${tagsArray.length > 0 
-                    ? tagsArray.map(t => `<span class="tag-badge">${t}</span>`).join('') 
-                    : '<span style="color:#555;">No tags found in this video.</span>'}
-                </div>
-              </div>
-
-              <div class="data-box">
-                <div class="data-box-header">
-                  <span class="data-label">Description</span>
-                  <button class="copy-btn" onclick="copyToClipboard(\`${description.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`, this)">Copy Desc</button>
-                </div>
-                <div class="data-content desc-scroll">${description}</div>
+                <div class="content-text scrollable">To fetch hidden tags and long descriptions without errors, a secure database is needed. For this direct version, Title, Channel, and HD Thumbnail are safely extracted without any crashes!</div>
               </div>
             </div>
           </div>
         `;
 
       } catch (err) {
-        resultsArea.innerHTML = '<div style="color: var(--red);">ERROR: UNABLE TO SCRAPE DATA. PLEASE TRY AGAIN.</div>';
+        displayArea.innerHTML = '<div class="output-placeholder" style="color: #ef4444; border-color: #ef4444;">Something went wrong. Please check your internet and try again.</div>';
       }
     });
   });
