@@ -1,306 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEO Studio - Assets Extractor</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-main: #0f172a;
-    --bg-card: #1e293b;
-    --border: #334155;
-    --primary: #8b5cf6;
-    --primary-hover: #7c3aed;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salim's SEO Extractor - Pro YouTube Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --glass: rgba(17, 24, 39, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #6366f1; /* Royal Indigo */
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --text-main: #f9fafb;
+            --text-dim: #9ca3af;
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    background-color: var(--bg-main);
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    padding: 30px 15px;
-  }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #030712 50%);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-  .wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-  header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
+        header { text-align: center; margin-bottom: 60px; }
+        header h1 { 
+            font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        header p { color: var(--text-dim); font-size: 1.1rem; }
 
-  header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin-bottom: 10px;
-  }
+        .input-panel {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
 
-  header h1 span { color: var(--primary); }
-  header p { color: var(--text-muted); font-size: 1.1rem; }
+        .input-box {
+            display: flex; flex-direction: column; gap: 15px;
+        }
 
-  .input-section {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-  }
+        input[type="text"] {
+            width: 100%; padding: 20px; border-radius: 16px; border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 1.1rem; outline: none;
+            transition: 0.3s;
+        }
+        input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
 
-  .input-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-  }
+        .btn-extract {
+            width: 100%; padding: 20px; border-radius: 16px; border: none;
+            background: var(--accent); color: #fff; font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; transition: 0.3s; letter-spacing: 1px;
+        }
+        .btn-extract:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--accent-glow); }
 
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+        /* --- SALIM BRANDED LOADING SCREEN --- */
+        .salim-loading-zone {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            margin-top: 20px;
+        }
 
-  input[type="text"] {
-    width: 100%;
-    padding: 16px;
-    background: #0b0f19;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    font-family: inherit;
-  }
+        /* Tech Logo Animation */
+        .salim-logo-spinner {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px auto;
+        }
 
-  input[type="text"]:focus {
-    border-color: var(--primary);
-  }
+        .outer-ring {
+            position: absolute; width: 100%; height: 100%;
+            border: 4px solid transparent; border-top-color: var(--accent);
+            border-bottom-color: #c084fc; border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+        }
 
-  .btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--primary);
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+        .inner-core {
+            position: absolute; top: 15px; left: 15px; width: 50px; height: 50px;
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.4rem; color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
 
-  .btn:hover { background: var(--primary-hover); }
+        .loading-text {
+            font-size: 1.2rem; font-weight: 600; letter-spacing: 1px;
+            background: linear-gradient(to right, #ffffff, #818cf8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
 
-  .output-placeholder {
-    text-align: center;
-    padding: 60px;
-    color: var(--text-muted);
-    border: 2px dashed var(--border);
-    border-radius: 16px;
-    font-size: 1.1rem;
-  }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 25px var(--accent); } }
 
-  /* Divided Output Layout */
-  .grid-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+        /* Results Layout */
+        #results-area { display: none; margin-top: 40px; }
+        .grid-system { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }
 
-  @media (min-width: 768px) {
-    .grid-layout { grid-template-columns: 1fr 1.2fr; }
-  }
+        .preview-card { position: sticky; top: 20px; }
+        .preview-card img { 
+            width: 100%; border-radius: 20px; border: 1px solid var(--border); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
 
-  .preview-box img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    margin-bottom: 15px;
-  }
+        .data-card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 24px; padding: 30px; margin-bottom: 25px;
+        }
 
-  .download-link {
-    display: block;
-    text-align: center;
-    background: #10b981;
-    color: white;
-    text-decoration: none;
-    padding: 14px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
+        .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+        }
+        .section-label { color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
-  .data-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid var(--border);
+            padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; transition: 0.2s;
+        }
+        .copy-btn:hover { background: var(--accent); }
 
-  .box-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-  }
+        .content-box { font-size: 1.1rem; line-height: 1.6; color: #fff; }
+        .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent); color: #818cf8; padding: 4px 12px; border-radius: 100px; font-size: 0.9rem; }
 
-  .box-title {
-    font-weight: 600;
-    color: var(--primary);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+        .desc-box { max-height: 250px; overflow-y: auto; color: var(--text-dim); font-size: 0.95rem; white-space: pre-wrap; }
 
-  .copy-btn {
-    background: #334155;
-    border: none;
-    color: var(--text);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-family: inherit;
-  }
+        footer {
+            text-align: center; margin-top: 80px; padding: 40px;
+            border-top: 1px solid var(--border); color: var(--text-dim);
+            font-weight: 600; letter-spacing: 1px;
+        }
+        .salim-badge { color: var(--accent); font-weight: 800; }
 
-  .copy-btn:hover { background: #475569; }
-
-  .content-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    word-break: break-word;
-  }
-
-  .scrollable {
-    max-height: 180px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    font-size: 0.9rem;
-    color: #cbd5e1;
-  }
-</style>
+        @media (max-width: 850px) {
+            .grid-system { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.2rem; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="wrapper">
-  <header>
-    <h1>SEO <span>STUDIO</span></h1>
-    <p>Extract YouTube metadata instantly</p>
-  </header>
+<div class="container">
+    <header>
+        <h1>SEO <span>STUDIO</span></h1>
+        <p>Hidden Insights & High-Quality Assets Extractor</p>
+    </header>
 
-  <div class="input-section">
-    <span class="input-label">Enter YouTube Video Link</span>
-    <div class="input-group">
-      <input type="text" id="video-url" placeholder="https://www.youtube.com/watch?v=...">
-      <button class="btn" id="extract-btn">Extract Assets</button>
+    <div class="input-panel">
+        <div class="input-box">
+            <input type="text" id="v-url" placeholder="Paste your YouTube link here...">
+            <button class="btn-extract" id="go-btn">EXTRACT HIDDEN DATA</button>
+        </div>
     </div>
-  </div>
 
-  <div id="display-area">
-    <div class="output-placeholder">
-      Paste a link above and click extract to load assets.
+    <div class="salim-loading-zone" id="salim-loader">
+        <div class="salim-logo-spinner">
+            <div class="outer-ring"></div>
+            <div class="inner-core">S</div>
+        </div>
+        <div class="loading-text">SALIM'S ENGINE IS EXTRACTING...</div>
     </div>
-  </div>
+
+    <div id="results-area">
+        <div class="grid-system">
+            <div class="preview-card">
+                <img id="main-thumb" src="" alt="Video Thumbnail">
+                <a id="dl-link" href="" target="_blank" style="text-decoration: none;">
+                    <button class="btn-extract" style="margin-top: 20px; background: #10b981;">DOWNLOAD HD THUMBNAIL</button>
+                </a>
+            </div>
+
+            <div class="info-side">
+                <div class="data-card">
+                    <div class="section-header">
+                        <span class="section-label">Video Title</span>
+                        <button class="copy-btn" onclick="copyIt('v-title', this)">COPY</button>
+                    </div>
+                    <div class="content-box" id="v-title"></div>
+                </div>
+
+                <div class="data-card">
+                    <div class="section-header">
+                        <span class="section-label">Hidden Keywords / Tags</span>
+                        <button class="copy-btn" onclick="copyIt('v-tags', this)">COPY ALL</button>
+                    </div>
+                    <div class="tags-container" id="v-tags-ui"></div>
+                    <div id="v-tags" style="display:none;"></div>
+                </div>
+
+                <div class="data-card">
+                    <div class="section-header">
+                        <span class="section-label">Full Description</span>
+                        <button class="copy-btn" onclick="copyIt('v-desc', this)">COPY DESC</button>
+                    </div>
+                    <div class="desc-box" id="v-desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        OWNER OF THIS WEBSITE IS <span class="salim-badge">SALIM</span>
+    </footer>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const urlInput = document.getElementById('video-url');
-    const extractBtn = document.getElementById('extract-btn');
-    const displayArea = document.getElementById('display-area');
+    const goBtn = document.getElementById('go-btn');
+    const salimLoader = document.getElementById('salim-loader');
+    const results = document.getElementById('results-area');
 
     function getID(url) {
-      const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i;
-      const match = url.match(reg);
-      return match ? match[1] : null;
+        const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i;
+        const match = url.match(reg);
+        return match ? match[1] : null;
     }
 
-    window.copyText = (text, btn) => {
-      navigator.clipboard.writeText(text).then(() => {
-        const oldText = btn.innerText;
-        btn.innerText = "Copied!";
-        setTimeout(() => { btn.innerText = oldText; }, 1200);
-      });
+    window.copyIt = (id, btn) => {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text);
+        btn.innerText = "COPIED!";
+        setTimeout(() => btn.innerText = "COPY", 1500);
     };
 
-    extractBtn.addEventListener('click', async () => {
-      const url = urlInput.value.trim();
-      const id = getID(url);
+    goBtn.addEventListener('click', async () => {
+        const url = document.getElementById('v-url').value.trim();
+        const id = getID(url);
 
-      if (!id) {
-        displayArea.innerHTML = '<div class="output-placeholder" style="color: #ef4444; border-color: #ef4444;">Error: Please enter a valid YouTube link.</div>';
-        return;
-      }
+        if (!id) {
+            alert("Please paste a valid YouTube URL!");
+            return;
+        }
 
-      displayArea.innerHTML = '<div class="output-placeholder">Processing assets...</div>';
+        results.style.display = 'none';
+        salimLoader.style.display = 'block'; // Show Branded Loader
 
-      try {
-        // Safe & Stable metadata fetch using NoEmbed (No proxy, no crash)
-        const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
-        const data = await res.json();
+        try {
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + id)}`;
+            const response = await fetch(proxyUrl);
+            const data = await response.json();
+            const html = data.contents;
 
-        const title = data.title || "No Title Available";
-        const author = data.author_name || "Unknown Channel";
-        const maxThumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+            const title = html.match(/<title>(.*?) - YouTube<\/title>/)?.[1] || "Title not found";
+            const desc = html.match(/"shortDescription":"(.*?)"/)?.[1]?.replace(/\\n/g, '\n').replace(/\\"/g, '"') || "Description hidden or private";
+            const keywords = html.match(/"keywords":\[(.*?)\]/)?.[1]?.replace(/"/g, '') || "";
+            
+            const thumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 
-        // Render clean, completely fresh layout
-        displayArea.innerHTML = `
-          <div class="grid-layout">
-            <div class="preview-box">
-              <img src="${maxThumb}" alt="Thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
-              <a href="${maxThumb}" target="_blank" class="download-link">Open Full Size Image</a>
-            </div>
+            document.getElementById('main-thumb').src = thumb;
+            document.getElementById('dl-link').href = thumb;
+            document.getElementById('v-title').innerText = title;
+            document.getElementById('v-desc').innerText = desc;
+            
+            const tagsList = keywords.split(',').filter(t => t.trim() !== "");
+            const tagsUI = document.getElementById('v-tags-ui');
+            const tagsRaw = document.getElementById('v-tags');
+            
+            tagsUI.innerHTML = tagsList.length ? tagsList.map(t => `<span class="tag">${t}</span>`).join('') : "No hidden tags found";
+            tagsRaw.innerText = keywords;
 
-            <div class="info-box">
-              <div class="data-box">
-                <div class="box-header">
-                  <span class="box-title">Video Title</span>
-                  <button class="copy-btn" onclick="copyText(\`${title.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`, this)">Copy</button>
-                </div>
-                <div class="content-text">${title}</div>
-              </div>
+            salimLoader.style.display = 'none'; // Hide Loader
+            results.style.display = 'block';
+            results.scrollIntoView({ behavior: 'smooth' });
 
-              <div class="data-box">
-                <div class="box-header">
-                  <span class="box-title">Channel Name</span>
-                  <button class="copy-btn" onclick="copyText('${author}', this)">Copy</button>
-                </div>
-                <div class="content-text" style="font-weight: 600;">${author}</div>
-              </div>
-
-              <div class="data-box">
-                <div class="box-header">
-                  <span class="box-title">Quick Note</span>
-                </div>
-                <div class="content-text scrollable">To fetch hidden tags and long descriptions without errors, a secure database is needed. For this direct version, Title, Channel, and HD Thumbnail are safely extracted without any crashes!</div>
-              </div>
-            </div>
-          </div>
-        `;
-
-      } catch (err) {
-        displayArea.innerHTML = '<div class="output-placeholder" style="color: #ef4444; border-color: #ef4444;">Something went wrong. Please check your internet and try again.</div>';
-      }
+        } catch (err) {
+            salimLoader.style.display = 'none';
+            alert("Connection error! Please try again.");
+        }
     });
-  });
 </script>
 </body>
 </html>
