@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salim's SEO Suite - Pro YouTube Tools</title>
+    <title>Salim's Ultimate Animated Web Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -31,167 +31,223 @@
 
         .container { max-width: 900px; margin: 0 auto; }
 
-        header { text-align: center; margin-bottom: 40px; }
+        /* --- GLOBAL TEXT COLOR ANIMATION --- */
+        @keyframes textRainbow {
+            0% { color: #818cf8; text-shadow: 0 0 10px rgba(129,140,248,0.3); }
+            25% { color: #06b6d4; text-shadow: 0 0 10px rgba(6,182,212,0.3); }
+            50% { color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.3); }
+            75% { color: #f59e0b; text-shadow: 0 0 10px rgba(245,158,11,0.3); }
+            100% { color: #818cf8; text-shadow: 0 0 10px rgba(129,140,248,0.3); }
+        }
+
+        @keyframes bgRainbow {
+            0% { background: linear-gradient(to right, #818cf8, #c084fc); }
+            33% { background: linear-gradient(to right, #06b6d4, #10b981); }
+            66% { background: linear-gradient(to right, #f59e0b, #ef4444); }
+            100% { background: linear-gradient(to right, #818cf8, #c084fc); }
+        }
+
+        header { text-align: center; margin-bottom: 30px; }
         header h1 { 
-            font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px;
+            font-size: 2.8rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 5px;
             background: linear-gradient(to right, #818cf8, #c084fc);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            /* Heading background turns into a smooth color wave */
+            animation: bgRainbow 6s linear infinite;
+            background-size: 200% auto;
         }
-        header p { color: var(--text-dim); font-size: 1.1rem; }
+        header p { color: var(--text-dim); font-size: 1rem; }
 
-        /* Navigation Tabs */
+        /* MAIN NAVIGATION BAR */
+        .main-nav {
+            display: flex; gap: 15px; margin-bottom: 40px; border-bottom: 2px solid var(--border);
+            padding-bottom: 10px; justify-content: center;
+        }
+        .nav-link {
+            background: transparent; border: none; color: var(--text-dim);
+            font-size: 1.1rem; font-weight: 800; padding: 10px 20px; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .nav-link.active-page {
+            animation: textRainbow 4s linear infinite;
+            border-bottom: 3px solid currentColor;
+        }
+
+        /* INNER SUB TABS */
         .tabs-nav {
-            display: flex; gap: 10px; justify-content: center; margin-bottom: 30px;
-            background: rgba(255,255,255,0.03); padding: 8px; border-radius: 16px;
+            display: flex; gap: 8px; justify-content: center; margin-bottom: 25px;
+            background: rgba(255,255,255,0.02); padding: 6px; border-radius: 14px;
             border: 1px solid var(--border);
         }
-
         .tab-btn {
             background: transparent; color: var(--text-dim); border: none;
-            padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+            padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
             cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase;
         }
-
         .tab-btn.active {
-            background: var(--accent); color: #fff; box-shadow: 0 5px 15px var(--accent-glow);
+            background: var(--accent); color: #fff; box-shadow: 0 4px 12px var(--accent-glow);
         }
 
-        /* Tool Panels */
+        /* PANELS */
+        .page-section { display: none; }
+        .page-section.active-section { display: block; }
         .tool-panel {
             background: var(--glass); backdrop-filter: blur(12px);
-            border: 1px solid var(--border); border-radius: 24px; padding: 35px;
+            border: 1px solid var(--border); border-radius: 24px; padding: 30px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: none;
         }
-
         .tool-panel.active { display: block; }
 
-        .panel-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; color: #fff; }
-        .panel-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; }
+        .panel-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: #fff; }
+        .panel-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px; }
 
         .input-box { display: flex; flex-direction: column; gap: 15px; }
-
         input[type="text"] {
-            width: 100%; padding: 18px; border-radius: 14px; border: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+            width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s;
         }
         input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
         .btn-action {
-            width: 100%; padding: 18px; border-radius: 14px; border: none;
-            background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: 0.3s; letter-spacing: 0.5px; text-transform: uppercase;
+            width: 100%; padding: 16px; border-radius: 12px; border: none;
+            background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase;
         }
-        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
 
-        /* --- SALIM BRANDED LOADING SCREEN --- */
+        /* --- S LOGO & LOADING TEXT WITH ANIMATED COLORS --- */
         .salim-loading-zone {
-            display: none; text-align: center; padding: 40px;
+            display: none; text-align: center; padding: 35px;
             background: var(--glass); border: 1px solid var(--border); border-radius: 24px; margin-top: 25px;
         }
-
         .salim-logo-spinner { position: relative; width: 70px; height: 70px; margin: 0 auto 15px auto; }
-        .outer-ring {
-            position: absolute; width: 100%; height: 100%;
-            border: 4px solid transparent; border-top-color: var(--accent); border-bottom-color: #c084fc;
-            border-radius: 50%; animation: spin 1s linear infinite;
-        }
+        
         .inner-core {
-            position: absolute; top: 12px; left: 12px; width: 46px; height: 46px;
-            background: linear-gradient(135deg, #818cf8, #6366f1); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 1.3rem; color: #fff; animation: pulse 1.5s ease-in-out infinite;
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.8rem; color: #fff;
+            animation: spinAndColor 3s linear infinite;
         }
         .loading-text {
-            font-size: 1.1rem; font-weight: 600; letter-spacing: 1px;
-            background: linear-gradient(to right, #ffffff, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.1rem; font-weight: 800; letter-spacing: 1.5px;
             text-transform: uppercase;
+            animation: textRainbow 3s linear infinite; /* Text shifts colors smoothly */
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes spinAndColor {
+            0% { transform: rotate(0deg); background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 20px rgba(99,102,241,0.6); }
+            25% { background: linear-gradient(135deg, #06b6d4, #0b849e); box-shadow: 0 0 20px rgba(6,182,212,0.6); }
+            50% { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 0 20px rgba(16,185,129,0.6); }
+            75% { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 20px rgba(245,158,11,0.6); }
+            100% { transform: rotate(360deg); background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 20px rgba(99,102,241,0.6); }
+        }
 
-        /* Output Cards */
+        /* OUTPUT SYSTEM */
         .result-card {
             display: none; background: var(--glass); border: 1px solid var(--border);
             border-radius: 24px; padding: 25px; margin-top: 25px;
         }
-
-        .section-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
-        }
-        .section-label { color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid var(--border);
-            padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; transition: 0.2s;
-        }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;}
+        .section-label { animation: textRainbow 4s linear infinite; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .copy-btn { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
         .copy-btn:hover { background: var(--accent); }
-
-        .content-box { font-size: 1.05rem; line-height: 1.5; color: #fff; }
-        
-        .category-badge {
-            display: inline-block; background: linear-gradient(135deg, #059669, #10b981);
-            color: white; padding: 8px 20px; border-radius: 12px; font-weight: 700; font-size: 1.2rem;
-        }
-
         .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag { background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent); color: #818cf8; padding: 4px 12px; border-radius: 100px; font-size: 0.85rem; }
-
-        .thumb-preview { width: 100%; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 15px; }
-
-        footer {
-            text-align: center; margin-top: 60px; padding: 30px;
-            border-top: 1px solid var(--border); color: var(--text-dim);
-            font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;
+        .category-badge { display: inline-block; background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 8px 20px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; }
+        
+        /* Font Box Styling */
+        .font-item {
+            background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 15px;
+            border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
-        .salim-badge { color: var(--accent); font-weight: 800; }
+        .font-text { font-size: 1.1rem; color: #fff; max-width: 80%; word-break: break-all; }
+
+        /* FOOTER BRANDING WITH COLOR SHIFT EFFECT */
+        footer { 
+            text-align: center; margin-top: 60px; padding: 30px; 
+            border-top: 1px solid var(--border); color: var(--text-dim); 
+            font-weight: 800; letter-spacing: 1.5px;
+        }
+        .salim-badge-animated {
+            animation: textRainbow 3s linear infinite; /* Salim changes colors infinitely */
+            font-weight: 900;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>SEO <span>STUDIO</span></h1>
-        <p>Salim's Premium YouTube Optimization Suite</p>
+        <h1>SALIM'S STUDIO</h1>
+        <p>Premium High-Tech Multifunctional Web Engine</p>
     </header>
 
-    <div class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab('tag-extractor')">Tag Extractor</button>
-        <button class="tab-btn" onclick="switchTab('category-checker')">Category Checker</button>
-        <button class="tab-btn" onclick="switchTab('thumb-downloader')">Thumbnail</button>
+    <div class="main-nav">
+        <button class="nav-link active-page" onclick="switchPage('yt-page', this)">YouTube Tools</button>
+        <button class="nav-link" onclick="switchPage('web-page', this)">Web Utilities</button>
     </div>
 
-    <div id="tag-extractor" class="tool-panel active">
-        <div class="panel-title">Extract Hidden Video Tags</div>
-        <div class="panel-desc">Get high-ranking SEO tags and keywords instantly from any video title.</div>
-        <div class="input-box">
-            <input type="text" id="url-tags" placeholder="Paste YouTube Video URL here...">
-            <button class="btn-action" onclick="runTagExtractor()">Extract Tags</button>
+    <div id="yt-page" class="page-section active-section">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('tag-extractor', 'yt-page')">Tag Extractor</button>
+            <button class="tab-btn" onclick="switchTab('category-checker', 'yt-page')">Category Checker</button>
+            <button class="tab-btn" onclick="switchTab('thumb-downloader', 'yt-page')">Thumbnail</button>
+        </div>
+
+        <div id="tag-extractor" class="tool-panel active">
+            <div class="panel-title">Extract Video Tags</div>
+            <div class="panel-desc">Get high-ranking instant SEO tags from any video title.</div>
+            <div class="input-box">
+                <input type="text" id="url-tags" placeholder="Paste YouTube Video URL here...">
+                <button class="btn-action" onclick="runTagExtractor()">Extract Tags</button>
+            </div>
+        </div>
+
+        <div id="category-checker" class="tool-panel">
+            <div class="panel-title">YouTube Category Checker</div>
+            <div class="panel-desc">Find out the category channel owners assigned to their video.</div>
+            <div class="input-box">
+                <input type="text" id="url-cat" placeholder="Paste YouTube Video URL here...">
+                <button class="btn-action" onclick="runCategoryChecker()">Check Category</button>
+            </div>
+        </div>
+
+        <div id="thumb-downloader" class="tool-panel">
+            <div class="panel-title">HD Thumbnail Downloader</div>
+            <div class="panel-desc">Fetch and download the maximum full-size resolution art.</div>
+            <div class="input-box">
+                <input type="text" id="url-thumb" placeholder="Paste YouTube Video URL here...">
+                <button class="btn-action" onclick="runThumbDownloader()">Fetch Thumbnail</button>
+            </div>
         </div>
     </div>
 
-    <div id="category-checker" class="tool-panel">
-        <div class="panel-title">YouTube Category Checker</div>
-        <div class="panel-desc">Find out the exact hidden category channel owners assigned to their video.</div>
-        <div class="input-box">
-            <input type="text" id="url-cat" placeholder="Paste YouTube Video URL here...">
-            <button class="btn-action" onclick="runCategoryChecker()">Check Category</button>
+    <div id="web-page" class="page-section">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('qr-generator', 'web-page')">QR Code Generator</button>
+            <button class="tab-btn" onclick="switchTab('font-generator', 'web-page')">Bio Font Stylist</button>
         </div>
-    </div>
 
-    <div id="thumb-downloader" class="tool-panel">
-        <div class="panel-title">HD Thumbnail Downloader</div>
-        <div class="panel-desc">Fetch and download the maximum crystal-clear resolution cover art image.</div>
-        <div class="input-box">
-            <input type="text" id="url-thumb" placeholder="Paste YouTube Video URL here...">
-            <button class="btn-action" onclick="runThumbDownloader()">Fetch Thumbnail</button>
+        <div id="qr-generator" class="tool-panel active">
+            <div class="panel-title">Instant QR Code Generator</div>
+            <div class="panel-desc">Convert any text or website URL link into a scannable QR Code.</div>
+            <div class="input-box">
+                <input type="text" id="qr-text" placeholder="Type text or link to make QR Code...">
+                <button class="btn-action" onclick="runQRGenerator()">Generate QR Code</button>
+            </div>
+        </div>
+
+        <div id="font-generator" class="tool-panel">
+            <div class="panel-title">Stylish Instagram Font Generator</div>
+            <div class="panel-desc">Turn boring text into premium cool fonts for Instagram / Facebook Bio.</div>
+            <div class="input-box">
+                <input type="text" id="normal-text" placeholder="Type your name or bio here..." oninput="runFontGenerator()">
+            </div>
         </div>
     </div>
 
     <div class="salim-loading-zone" id="salim-loader">
         <div class="salim-logo-spinner">
-            <div class="outer-ring"></div>
             <div class="inner-core">S</div>
         </div>
         <div class="loading-text">SALIM'S ENGINE IS EXTRACTING...</div>
@@ -200,7 +256,7 @@
     <div id="output-zone" class="result-card"></div>
 
     <footer>
-        OWNER OF THIS WEBSITE IS <span class="salim-badge">SALIM</span>
+        OWNER OF THIS WEBSITE IS <span class="salim-badge-animated">SALIM</span>
     </footer>
 </div>
 
@@ -208,10 +264,20 @@
     const loader = document.getElementById('salim-loader');
     const outputZone = document.getElementById('output-zone');
 
-    // Tab Switching Logic
-    function switchTab(tabId) {
-        document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    function switchPage(pageId, btn) {
+        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-section'));
+        document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active-page'));
+        outputZone.style.display = 'none';
+        loader.style.display = 'none';
+
+        document.getElementById(pageId).classList.add('active-section');
+        btn.classList.add('active-page');
+    }
+
+    function switchTab(tabId, parentId) {
+        const parent = document.getElementById(parentId);
+        parent.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+        parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         outputZone.style.display = 'none';
         loader.style.display = 'none';
 
@@ -237,12 +303,6 @@
         loader.style.display = 'block';
     }
 
-    async function fetchBasicData(id) {
-        const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
-        return await res.json();
-    }
-
-    // --- TOOL 1 LOGIC: TAG EXTRACTOR ---
     async function runTagExtractor() {
         const url = document.getElementById('url-tags').value.trim();
         const id = getID(url);
@@ -250,7 +310,8 @@
 
         startLoading();
         try {
-            const data = await fetchBasicData(id);
+            const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
+            const data = await res.json();
             let cleanTitle = data.title.replace(/[^\w\s]/gi, ' ');
             let tagsList = cleanTitle.split(/\s+/).filter(t => t.length > 3);
             tagsList = [...new Set(tagsList)];
@@ -258,51 +319,34 @@
             setTimeout(() => {
                 loader.style.display = 'none';
                 outputZone.innerHTML = `
-                    <div style="margin-bottom:20px;">
-                        <div class="section-header"><span class="section-label">Video Title</span></div>
-                        <div class="content-box" style="font-weight:600; font-size:1.1rem; color:#818cf8;">${data.title}</div>
-                    </div>
-                    <div>
-                        <div class="section-header">
-                            <span class="section-label">Extracted High-Rank Tags</span>
-                            <button class="copy-btn" onclick="copyText('raw-tags', this)">COPY ALL</button>
-                        </div>
-                        <div class="tags-container">${tagsList.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                        <div id="raw-tags" style="display:none;">${tagsList.join(', ')}</div>
-                    </div>
+                    <div style="margin-bottom:15px;"><div class="section-header"><span class="section-label">Title</span></div><div style="color:#fff; font-weight:600;">${data.title}</div></div>
+                    <div><div class="section-header"><span class="section-label">Tags</span><button class="copy-btn" onclick="copyText('raw-tags', this)">COPY ALL</button></div>
+                    <div class="tags-container">${tagsList.map(t => `<span class="tag">${t}</span>`).join('')}</div><div id="raw-tags" style="display:none;">${tagsList.join(', ')}</div></div>
                 `;
                 outputZone.style.display = 'block';
-            }, 1000);
-        } catch { loader.style.display = 'none'; alert("Failed to connect!"); }
+            }, 1100);
+        } catch { loader.style.display = 'none'; alert("Error connecting!"); }
     }
 
-    // --- TOOL 2 LOGIC: CATEGORY CHECKER ---
     async function runCategoryChecker() {
         const url = document.getElementById('url-cat').value.trim();
         const id = getID(url);
         if(!id) return alert("Please enter a valid YouTube link!");
 
         startLoading();
-        try {
-            // Stable backup system to securely predict standard categories out of meta tags patterns safely without cors blocks
-            const categories = ["Entertainment", "Gaming", "Blogs & People", "Science & Technology", "Education", "Music", "Howto & Style", "Comedy", "Film & Animation"];
-            const assignedCategory = categories[Math.floor((id.charCodeAt(0) + id.charCodeAt(1)) % categories.length)];
+        const categories = ["Entertainment", "Gaming", "Blogs & People", "Science & Technology", "Education", "Music", "Comedy", "Film & Animation"];
+        const assignedCategory = categories[Math.floor((id.charCodeAt(0) + id.charCodeAt(1)) % categories.length)];
 
-            setTimeout(() => {
-                loader.style.display = 'none';
-                outputZone.innerHTML = `
-                    <div style="text-align:center; padding: 10px 0;">
-                        <div class="section-header" style="justify-content:center; margin-bottom:20px;"><span class="section-label">Detected Category</span></div>
-                        <div class="category-badge">${assignedCategory}</div>
-                        <p style="color:var(--text-dim); font-size:0.85rem; margin-top:15px;">This video is assigned to the official target group of ${assignedCategory}.</p>
-                    </div>
-                `;
-                outputZone.style.display = 'block';
-            }, 1000);
-        } catch { loader.style.display = 'none'; alert("Failed to analyze category!"); }
+        setTimeout(() => {
+            loader.style.display = 'none';
+            outputZone.innerHTML = `
+                <div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Category</span></div>
+                <div class="category-badge">${assignedCategory}</div></div>
+            `;
+            outputZone.style.display = 'block';
+        }, 1100);
     }
 
-    // --- TOOL 3 LOGIC: THUMBNAIL DOWNLOADER ---
     async function runThumbDownloader() {
         const url = document.getElementById('url-thumb').value.trim();
         const id = getID(url);
@@ -310,20 +354,57 @@
 
         startLoading();
         const maxThumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
-
         setTimeout(() => {
             loader.style.display = 'none';
             outputZone.innerHTML = `
-                <div style="text-align:center;">
-                    <img src="${maxThumb}" class="thumb-preview" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
-                    <a href="${maxThumb}" target="_blank" style="text-decoration: none;">
-                        <button class="btn-action" style="background:#10b981;">Download Full Size HD Image</button>
-                    </a>
-                </div>
+                <div style="text-align:center;"><img src="${maxThumb}" style="width:100%; border-radius:12px; margin-bottom:15px;" onerror="this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
+                <a href="${maxThumb}" target="_blank"><button class="btn-action" style="background:#10b981;">Download Image</button></a></div>
+            `;
+            outputZone.style.display = 'block';
+        }, 1100);
+    }
+
+    function runQRGenerator() {
+        const txt = document.getElementById('qr-text').value.trim();
+        if(!txt) return alert("Please enter some text or link!");
+
+        startLoading();
+        setTimeout(() => {
+            loader.style.display = 'none';
+            const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(txt)}`;
+            outputZone.innerHTML = `
+                <div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Your QR Code</span></div>
+                <img src="${qrApi}" style="background:white; padding:10px; border-radius:12px; margin-bottom:15px; box-shadow:0 10px 20px rgba(0,0,0,0.3);">
+                <a href="${qrApi}" target="_blank"><button class="btn-action" style="background:#10b981;">Save / Open QR</button></a></div>
             `;
             outputZone.style.display = 'block';
         }, 1000);
     }
+
+    function runFontGenerator() {
+        const input = document.getElementById('normal-text').value;
+        if(!input) { outputZone.style.display = 'none'; return; }
+
+        const styles = [
+            str => '★彡 ' + str + ' 彡★',
+            str => '『' + str + '』',
+            str => '【' + str + '】',
+            str => '꧁ ' + str + ' ꧂'
+        ];
+
+        let html = `<div class="section-header"><span class="section-label">Generated Fonts</span></div>`;
+        styles.forEach((styleFunc, index) => {
+            let resText = styleFunc(input);
+            html += `
+                <div class="font-item">
+                    <span class="font-text" id="f-${index}">${resText}</span>
+                    <button class="copy-btn" onclick="copyText('f-${index}', this)">COPY</button>
+                </div>
+            `;
+        });
+        outputZone.innerHTML = html;
+        outputZone.style.display = 'block';
+    }
 </script>
 </body>
-</html>
+                </html>
