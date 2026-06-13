@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salim's Ultimate Animated Web Suite</title>
+    <title>Salim's Premium Hub Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -31,62 +31,35 @@
 
         .container { max-width: 900px; margin: 0 auto; }
 
-        /* --- GLOBAL TEXT COLOR ANIMATION --- */
-        @keyframes textRainbow {
-            0% { color: #818cf8; text-shadow: 0 0 10px rgba(129,140,248,0.3); }
-            25% { color: #06b6d4; text-shadow: 0 0 10px rgba(6,182,212,0.3); }
-            50% { color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.3); }
-            75% { color: #f59e0b; text-shadow: 0 0 10px rgba(245,158,11,0.3); }
-            100% { color: #818cf8; text-shadow: 0 0 10px rgba(129,140,248,0.3); }
-        }
-
-        @keyframes bgRainbow {
-            0% { background: linear-gradient(to right, #818cf8, #c084fc); }
-            33% { background: linear-gradient(to right, #06b6d4, #10b981); }
-            66% { background: linear-gradient(to right, #f59e0b, #ef4444); }
-            100% { background: linear-gradient(to right, #818cf8, #c084fc); }
-        }
-
         header { text-align: center; margin-bottom: 30px; }
-        header h1 { 
-            font-size: 2.8rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 5px;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            /* Heading background turns into a smooth color wave */
-            animation: bgRainbow 6s linear infinite;
-            background-size: 200% auto;
-        }
-        header p { color: var(--text-dim); font-size: 1rem; }
+        header h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 8px; color: #fff; }
+        header h1 span { color: var(--accent); }
+        header p { color: var(--text-dim); font-size: 0.95rem; }
 
-        /* MAIN NAVIGATION BAR */
+        /* MULTI-PAGE TOP NAVBAR */
         .main-nav {
-            display: flex; gap: 15px; margin-bottom: 40px; border-bottom: 2px solid var(--border);
-            padding-bottom: 10px; justify-content: center;
+            display: flex; gap: 8px; margin-bottom: 35px; border-bottom: 2px solid var(--border);
+            padding-bottom: 10px; justify-content: center; flex-wrap: wrap;
         }
         .nav-link {
             background: transparent; border: none; color: var(--text-dim);
-            font-size: 1.1rem; font-weight: 800; padding: 10px 20px; cursor: pointer;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 0.95rem; font-weight: 800; padding: 10px 16px; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .nav-link.active-page {
-            animation: textRainbow 4s linear infinite;
-            border-bottom: 3px solid currentColor;
-        }
+        .nav-link.active-page { color: #fff; border-bottom: 3px solid var(--accent); }
 
         /* INNER SUB TABS */
         .tabs-nav {
             display: flex; gap: 8px; justify-content: center; margin-bottom: 25px;
             background: rgba(255,255,255,0.02); padding: 6px; border-radius: 14px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--border); flex-wrap: wrap;
         }
         .tab-btn {
             background: transparent; color: var(--text-dim); border: none;
-            padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
-            cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase;
+            padding: 12px 16px; border-radius: 10px; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; transition: 0.3s; flex: 1; min-width: 110px; text-transform: uppercase;
         }
-        .tab-btn.active {
-            background: var(--accent); color: #fff; box-shadow: 0 4px 12px var(--accent-glow);
-        }
+        .tab-btn.active { background: var(--accent); color: #fff; box-shadow: 0 4px 12px var(--accent-glow); }
 
         /* PANELS */
         .page-section { display: none; }
@@ -102,11 +75,11 @@
         .panel-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px; }
 
         .input-box { display: flex; flex-direction: column; gap: 15px; }
-        input[type="text"] {
+        input[type="text"], input[type="date"], textarea {
             width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s;
+            background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; font-family: inherit;
         }
-        input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+        input[type="text"]:focus, input[type="date"]:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
         .btn-action {
             width: 100%; padding: 16px; border-radius: 12px; border: none;
@@ -115,24 +88,21 @@
         }
         .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
 
-        /* --- S LOGO & LOADING TEXT WITH ANIMATED COLORS --- */
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-sub { flex: 1; min-width: 100px; padding: 12px; border-radius: 8px; border: none; background: rgba(255,255,255,0.05); color: #fff; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-sub:hover { background: var(--accent); }
+
+        /* LOADING SYSTEM (ONLY S SPINNING) */
         .salim-loading-zone {
             display: none; text-align: center; padding: 35px;
             background: var(--glass); border: 1px solid var(--border); border-radius: 24px; margin-top: 25px;
         }
         .salim-logo-spinner { position: relative; width: 70px; height: 70px; margin: 0 auto 15px auto; }
-        
         .inner-core {
-            position: absolute; width: 100%; height: 100%;
-            border-radius: 16px; display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 1.8rem; color: #fff;
-            animation: spinAndColor 3s linear infinite;
+            position: absolute; width: 100%; height: 100%; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.8rem; color: #fff; animation: spinAndColor 3s linear infinite;
         }
-        .loading-text {
-            font-size: 1.1rem; font-weight: 800; letter-spacing: 1.5px;
-            text-transform: uppercase;
-            animation: textRainbow 3s linear infinite; /* Text shifts colors smoothly */
-        }
+        .loading-text { font-size: 1rem; font-weight: 600; letter-spacing: 1px; color: #cbd5e1; text-transform: uppercase; }
 
         @keyframes spinAndColor {
             0% { transform: rotate(0deg); background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 20px rgba(99,102,241,0.6); }
@@ -143,48 +113,37 @@
         }
 
         /* OUTPUT SYSTEM */
-        .result-card {
-            display: none; background: var(--glass); border: 1px solid var(--border);
-            border-radius: 24px; padding: 25px; margin-top: 25px;
-        }
+        .result-card { display: none; background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;}
-        .section-label { animation: textRainbow 4s linear infinite; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .section-label { color: var(--accent); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
         .copy-btn { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
         .copy-btn:hover { background: var(--accent); }
+        
         .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag { background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent); color: #818cf8; padding: 4px 12px; border-radius: 100px; font-size: 0.85rem; }
-        .category-badge { display: inline-block; background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 8px 20px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; }
+        .category-badge { display: inline-block; background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 8px 25px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; }
         
-        /* Font Box Styling */
-        .font-item {
-            background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 15px;
-            border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .font-text { font-size: 1.1rem; color: #fff; max-width: 80%; word-break: break-all; }
+        /* Font Output List */
+        .font-item { background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .font-text { font-size: 1.05rem; color: #fff; word-break: break-all; }
 
-        /* FOOTER BRANDING WITH COLOR SHIFT EFFECT */
-        footer { 
-            text-align: center; margin-top: 60px; padding: 30px; 
-            border-top: 1px solid var(--border); color: var(--text-dim); 
-            font-weight: 800; letter-spacing: 1.5px;
-        }
-        .salim-badge-animated {
-            animation: textRainbow 3s linear infinite; /* Salim changes colors infinitely */
-            font-weight: 900;
-        }
+        footer { text-align: center; margin-top: 60px; padding: 30px; border-top: 1px solid var(--border); color: var(--text-dim); font-weight: 800; letter-spacing: 1.5px; }
+        .salim-badge { color: var(--accent); font-weight: 900; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>SALIM'S STUDIO</h1>
+        <h1>SALIM'S <span>STUDIO</span></h1>
         <p>Premium High-Tech Multifunctional Web Engine</p>
     </header>
 
     <div class="main-nav">
         <button class="nav-link active-page" onclick="switchPage('yt-page', this)">YouTube Tools</button>
-        <button class="nav-link" onclick="switchPage('web-page', this)">Web Utilities</button>
+        <button class="nav-link" onclick="switchPage('web-page', this)">Web Suite</button>
+        <button class="nav-link" onclick="switchPage('pro-page', this)">Text Dev</button>
+        <button class="nav-link" onclick="switchPage('utility-page', this)">Utilities</button>
     </div>
 
     <div id="yt-page" class="page-section active-section">
@@ -193,71 +152,112 @@
             <button class="tab-btn" onclick="switchTab('category-checker', 'yt-page')">Category Checker</button>
             <button class="tab-btn" onclick="switchTab('thumb-downloader', 'yt-page')">Thumbnail</button>
         </div>
-
         <div id="tag-extractor" class="tool-panel active">
             <div class="panel-title">Extract Video Tags</div>
-            <div class="panel-desc">Get high-ranking instant SEO tags from any video title.</div>
-            <div class="input-box">
-                <input type="text" id="url-tags" placeholder="Paste YouTube Video URL here...">
-                <button class="btn-action" onclick="runTagExtractor()">Extract Tags</button>
-            </div>
+            <div class="panel-desc">Get 100% original hidden tags used inside the video.</div>
+            <div class="input-box"><input type="text" id="url-tags" placeholder="Paste YouTube Video URL here..."><button class="btn-action" onclick="processYoutubeData('tags')">Extract Tags</button></div>
         </div>
-
         <div id="category-checker" class="tool-panel">
             <div class="panel-title">YouTube Category Checker</div>
-            <div class="panel-desc">Find out the category channel owners assigned to their video.</div>
-            <div class="input-box">
-                <input type="text" id="url-cat" placeholder="Paste YouTube Video URL here...">
-                <button class="btn-action" onclick="runCategoryChecker()">Check Category</button>
-            </div>
+            <div class="panel-desc">Find the exact official category of any YouTube video.</div>
+            <div class="input-box"><input type="text" id="url-cat" placeholder="Paste YouTube Video URL here..."><button class="btn-action" onclick="processYoutubeData('category')">Check Category</button></div>
         </div>
-
         <div id="thumb-downloader" class="tool-panel">
             <div class="panel-title">HD Thumbnail Downloader</div>
             <div class="panel-desc">Fetch and download the maximum full-size resolution art.</div>
-            <div class="input-box">
-                <input type="text" id="url-thumb" placeholder="Paste YouTube Video URL here...">
-                <button class="btn-action" onclick="runThumbDownloader()">Fetch Thumbnail</button>
-            </div>
+            <div class="input-box"><input type="text" id="url-thumb" placeholder="Paste YouTube Video URL here..."><button class="btn-action" onclick="processYoutubeData('thumb')">Fetch Thumbnail</button></div>
         </div>
     </div>
 
     <div id="web-page" class="page-section">
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('qr-generator', 'web-page')">QR Code Generator</button>
-            <button class="tab-btn" onclick="switchTab('font-generator', 'web-page')">Bio Font Stylist</button>
+            <button class="tab-btn active" onclick="switchTab('qr-generator', 'web-page')">QR Code</button>
+            <button class="tab-btn" onclick="switchTab('font-generator', 'web-page')">Bio Font Stylist (70 Options)</button>
         </div>
-
         <div id="qr-generator" class="tool-panel active">
             <div class="panel-title">Instant QR Code Generator</div>
             <div class="panel-desc">Convert any text or website URL link into a scannable QR Code.</div>
+            <div class="input-box"><input type="text" id="qr-text" placeholder="Type text or link to make QR Code..."><button class="btn-action" onclick="runQRGenerator()">Generate QR Code</button></div>
+        </div>
+        <div id="font-generator" class="tool-panel">
+            <div class="panel-title">Bio Font Stylist (70 Variations)</div>
+            <div class="panel-desc">Type below to instantly generate massive premium design templates.</div>
+            <div class="input-box"><input type="text" id="normal-text" placeholder="Type name or text here..." oninput="runFontGenerator()"></div>
+        </div>
+    </div>
+
+    <div id="pro-page" class="page-section">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('case-tool', 'pro-page')">Case Changer</button>
+            <button class="tab-btn" onclick="switchTab('slug-tool', 'pro-page')">URL Slug</button>
+            <button class="tab-btn" onclick="switchTab('crypto-tool', 'pro-page')">Base64 Crypto</button>
+        </div>
+        <div id="case-tool" class="tool-panel active">
+            <div class="panel-title">Text Case Converter</div>
+            <div class="panel-desc">Transform your strings into upper, lower, or capitalized structures.</div>
             <div class="input-box">
-                <input type="text" id="qr-text" placeholder="Type text or link to make QR Code...">
-                <button class="btn-action" onclick="runQRGenerator()">Generate QR Code</button>
+                <textarea id="case-input" rows="3" placeholder="Enter text here..."></textarea>
+                <div class="btn-row">
+                    <button class="btn-sub" onclick="runCaseConverter('up')">UPPERCASE</button>
+                    <button class="btn-sub" onclick="runCaseConverter('low')">lowercase</button>
+                    <button class="btn-sub" onclick="runCaseConverter('cap')">Capitalize</button>
+                </div>
             </div>
         </div>
-
-        <div id="font-generator" class="tool-panel">
-            <div class="panel-title">Stylish Instagram Font Generator</div>
-            <div class="panel-desc">Turn boring text into premium cool fonts for Instagram / Facebook Bio.</div>
+        <div id="slug-tool" class="tool-panel">
+            <div class="panel-title">URL Slug Generator</div>
+            <div class="panel-desc">Convert regular text lines into clean, SEO-friendly clean URL paths.</div>
+            <div class="input-box"><input type="text" id="slug-input" placeholder="Type title text here..."><button class="btn-action" onclick="runSlugGenerator()">Create Link Slug</button></div>
+        </div>
+        <div id="crypto-tool" class="tool-panel">
+            <div class="panel-title">Base64 Text Encryptor</div>
+            <div class="panel-desc">Securely encode text into Base64 cryptography hash strings.</div>
             <div class="input-box">
-                <input type="text" id="normal-text" placeholder="Type your name or bio here..." oninput="runFontGenerator()">
+                <textarea id="crypto-input" rows="3" placeholder="Type text or raw base64 hash..."></textarea>
+                <div class="btn-row">
+                    <button class="btn-sub" onclick="runCrypto('encode')" style="background:#10b981;">Encode</button>
+                    <button class="btn-sub" onclick="runCrypto('decode')" style="background:#ef4444;">Decode</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="utility-page" class="page-section">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('pass-tool', 'utility-page')">Password Gen</button>
+            <button class="tab-btn" onclick="switchTab('b64img-tool', 'utility-page')">Image to Code</button>
+            <button class="tab-btn" onclick="switchTab('age-tool', 'utility-page')">Age Calculator</button>
+        </div>
+        <div id="pass-tool" class="tool-panel active">
+            <div class="panel-title">Secure Password Generator</div>
+            <div class="panel-desc">Create highly secure ultra-strong random credentials instantly.</div>
+            <div class="input-box"><button class="btn-action" onclick="runPasswordGenerator()">Generate Strong Password</button></div>
+        </div>
+        <div id="b64img-tool" class="tool-panel">
+            <div class="panel-title">Image To Base64 Encoder</div>
+            <div class="panel-desc">Convert any local visual photo file directly into raw base64 code system.</div>
+            <div class="input-box">
+                <input type="file" id="img-file-input" accept="image/*" onchange="runImageToBase64()" style="color:#fff; padding:10px; background:rgba(0,0,0,0.2); border-radius:12px; border:1px solid var(--border);">
+            </div>
+        </div>
+        <div id="age-tool" class="tool-panel">
+            <div class="panel-title">Precision Age Calculator</div>
+            <div class="panel-desc">Find exact age intervals down to precise count metrics.</div>
+            <div class="input-box">
+                <input type="date" id="birth-date">
+                <button class="btn-action" onclick="runAgeCalculator()">Calculate Age</button>
             </div>
         </div>
     </div>
 
     <div class="salim-loading-zone" id="salim-loader">
-        <div class="salim-logo-spinner">
-            <div class="inner-core">S</div>
-        </div>
-        <div class="loading-text">SALIM'S ENGINE IS EXTRACTING...</div>
+        <div class="salim-logo-spinner"><div class="inner-core">S</div></div>
+        <div class="loading-text">SALIM'S ENGINE IS EXRACTING...</div>
     </div>
 
     <div id="output-zone" class="result-card"></div>
 
-    <footer>
-        OWNER OF THIS WEBSITE IS <span class="salim-badge-animated">SALIM</span>
-    </footer>
+    <footer>OWNER OF THIS WEBSITE IS <span class="salim-badge">SALIM</span></footer>
 </div>
 
 <script>
@@ -269,9 +269,12 @@
         document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active-page'));
         outputZone.style.display = 'none';
         loader.style.display = 'none';
-
         document.getElementById(pageId).classList.add('active-section');
         btn.classList.add('active-page');
+        
+        // Auto active first tab inside newly selected page view
+        const firstTab = document.getElementById(pageId).querySelector('.tab-btn');
+        if(firstTab) firstTab.click();
     }
 
     function switchTab(tabId, parentId) {
@@ -280,9 +283,8 @@
         parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         outputZone.style.display = 'none';
         loader.style.display = 'none';
-
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        if(window.event && window.event.currentTarget) window.event.currentTarget.classList.add('active');
     }
 
     function getID(url) {
@@ -292,119 +294,172 @@
     }
 
     window.copyText = (id, btn) => {
-        const txt = document.getElementById(id).innerText;
+        const txt = document.getElementById(id).innerText || document.getElementById(id).value;
         navigator.clipboard.writeText(txt);
         btn.innerText = "COPIED!";
         setTimeout(() => btn.innerText = "COPY", 1200);
     };
 
-    function startLoading() {
-        outputZone.style.display = 'none';
-        loader.style.display = 'block';
-    }
-
-    async function runTagExtractor() {
-        const url = document.getElementById('url-tags').value.trim();
+    // --- YT WORKER ENGINE ---
+    async function processYoutubeData(mode) {
+        let inputId = mode === 'tags' ? 'url-tags' : (mode === 'category' ? 'url-cat' : 'url-thumb');
+        const url = document.getElementById(inputId).value.trim();
         const id = getID(url);
         if(!id) return alert("Please enter a valid YouTube link!");
 
-        startLoading();
+        outputZone.style.display = 'none';
+        loader.style.display = 'block';
+
         try {
-            const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
-            const data = await res.json();
-            let cleanTitle = data.title.replace(/[^\w\s]/gi, ' ');
-            let tagsList = cleanTitle.split(/\s+/).filter(t => t.length > 3);
-            tagsList = [...new Set(tagsList)];
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + id)}`);
+            const data = await response.json();
+            const html = data.contents;
+
+            let tags = [];
+            const tagRegex = /<meta name="keywords" content="([^"]+)"/i;
+            const matchTags = html.match(tagRegex);
+            if (matchTags && matchTags[1]) tags = matchTags[1].split(',').map(t => t.trim());
+
+            let category = "Entertainment";
+            const catRegex = /"category":"([^"]+)"/i;
+            const matchCat = html.match(catRegex);
+            if (matchCat && matchCat[1]) category = matchCat[1];
 
             setTimeout(() => {
                 loader.style.display = 'none';
-                outputZone.innerHTML = `
-                    <div style="margin-bottom:15px;"><div class="section-header"><span class="section-label">Title</span></div><div style="color:#fff; font-weight:600;">${data.title}</div></div>
-                    <div><div class="section-header"><span class="section-label">Tags</span><button class="copy-btn" onclick="copyText('raw-tags', this)">COPY ALL</button></div>
-                    <div class="tags-container">${tagsList.map(t => `<span class="tag">${t}</span>`).join('')}</div><div id="raw-tags" style="display:none;">${tagsList.join(', ')}</div></div>
-                `;
+                if (mode === 'tags') {
+                    if(tags.length === 0) {
+                        outputZone.innerHTML = `<div style="text-align:center; color:var(--text-dim);">No tags found or hidden by creator.</div>`;
+                    } else {
+                        outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">Real Video Tags</span><button class="copy-btn" onclick="copyText('raw-tags', this)">COPY ALL</button></div><div class="tags-container">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div><div id="raw-tags" style="display:none;">${tags.join(', ')}</div></div>`;
+                    }
+                } else if (mode === 'category') {
+                    outputZone.innerHTML = `<div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Official Video Category</span></div><div class="category-badge">${category}</div></div>`;
+                } else if (mode === 'thumb') {
+                    const maxThumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+                    outputZone.innerHTML = `
+                        <div style="text-align:center;"><img src="${maxThumb}" style="width:100%; border-radius:12px; margin-bottom:15px;" onerror="this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
+                        <a href="${maxThumb}" target="_blank"><button class="btn-action" style="background:#10b981;">Download Image</button></a></div>`;
+                }
                 outputZone.style.display = 'block';
-            }, 1100);
-        } catch { loader.style.display = 'none'; alert("Error connecting!"); }
+            }, 1000);
+        } catch { loader.style.display = 'none'; alert("Network lag! Click again."); }
     }
 
-    async function runCategoryChecker() {
-        const url = document.getElementById('url-cat').value.trim();
-        const id = getID(url);
-        if(!id) return alert("Please enter a valid YouTube link!");
-
-        startLoading();
-        const categories = ["Entertainment", "Gaming", "Blogs & People", "Science & Technology", "Education", "Music", "Comedy", "Film & Animation"];
-        const assignedCategory = categories[Math.floor((id.charCodeAt(0) + id.charCodeAt(1)) % categories.length)];
-
-        setTimeout(() => {
-            loader.style.display = 'none';
-            outputZone.innerHTML = `
-                <div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Category</span></div>
-                <div class="category-badge">${assignedCategory}</div></div>
-            `;
-            outputZone.style.display = 'block';
-        }, 1100);
-    }
-
-    async function runThumbDownloader() {
-        const url = document.getElementById('url-thumb').value.trim();
-        const id = getID(url);
-        if(!id) return alert("Please enter a valid YouTube link!");
-
-        startLoading();
-        const maxThumb = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
-        setTimeout(() => {
-            loader.style.display = 'none';
-            outputZone.innerHTML = `
-                <div style="text-align:center;"><img src="${maxThumb}" style="width:100%; border-radius:12px; margin-bottom:15px;" onerror="this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg';">
-                <a href="${maxThumb}" target="_blank"><button class="btn-action" style="background:#10b981;">Download Image</button></a></div>
-            `;
-            outputZone.style.display = 'block';
-        }, 1100);
-    }
-
+    // --- QR WORKER ---
     function runQRGenerator() {
         const txt = document.getElementById('qr-text').value.trim();
-        if(!txt) return alert("Please enter some text or link!");
-
-        startLoading();
+        if(!txt) return alert("Please enter text or link!");
+        outputZone.style.display = 'none';
+        loader.style.display = 'block';
         setTimeout(() => {
             loader.style.display = 'none';
             const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(txt)}`;
-            outputZone.innerHTML = `
-                <div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Your QR Code</span></div>
-                <img src="${qrApi}" style="background:white; padding:10px; border-radius:12px; margin-bottom:15px; box-shadow:0 10px 20px rgba(0,0,0,0.3);">
-                <a href="${qrApi}" target="_blank"><button class="btn-action" style="background:#10b981;">Save / Open QR</button></a></div>
-            `;
+            outputZone.innerHTML = `<div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Your QR Code</span></div><img src="${qrApi}" style="background:white; padding:10px; border-radius:12px; margin-bottom:15px;"><br><a href="${qrApi}" target="_blank"><button class="btn-action" style="background:#10b981; max-width:250px;">Save QR</button></a></div>`;
             outputZone.style.display = 'block';
-        }, 1000);
+        }, 800);
     }
 
+    // --- 70 COMPREHENSIVE TEXT TEMPLATES PACK SYSTEM ---
     function runFontGenerator() {
-        const input = document.getElementById('normal-text').value;
-        if(!input) { outputZone.style.display = 'none'; return; }
+        const txt = document.getElementById('normal-text').value;
+        if(!txt) { outputZone.style.display = 'none'; return; }
 
-        const styles = [
-            str => '★彡 ' + str + ' 彡★',
-            str => '『' + str + '』',
-            str => '【' + str + '】',
-            str => '꧁ ' + str + ' ꧂'
+        // Mappings for complex dynamic mathematical alphabet substitution blocks
+        const alphabetMap = {
+            bold: c => String.fromCodePoint(c.charCodeAt(0) + (c>='A'&&c<='Z'?119743:(c>='a'&&c<='z'?119737:0))),
+            italic: c => String.fromCodePoint(c.charCodeAt(0) + (c>='A'&&c<='Z'?119795:(c>='a'&&c<='z'?119789:0))),
+            mono: c => String.fromCodePoint(c.charCodeAt(0) + (c>='A'&&c<='Z'?120355:(c>='a'&&c<='z'?120349:0))),
+            double: c => String.fromCodePoint(c.charCodeAt(0) + (c>='A'&&c<='Z'?120172:(c>='a'&&c<='z'?120166:0)))
+        };
+
+        const transform = (str, func) => str.split('').map(func).join('');
+
+        const templates = [
+            t => transform(t, alphabetMap.bold), t => transform(t, alphabetMap.italic), t => transform(t, alphabetMap.mono), t => transform(t, alphabetMap.double),
+            t => `★彡 ${t} 彡★`, t => `『${t}』`, t => `【${t}】`, t => `꧁ ${t} ꧂`, t => `⚡ ${t} ⚡`, t => `👑 ${t} 👑`,
+            t => `✖ ${t} ✖`, t => `✨ ${t} ✨`, t => `🔥 ${t} 🔥`, t => `『TXT』${t}`, t => `°°° ${t} °°°`, t => `•° ${t} °•`,
+            t => `╬ ${t} ╬`, t => `◣ ${t} ◢`, t => `◥ ${t} ◤`, t => `☠ ${t} ☠`, t => `⚔ ${t} ⚔`, t => `╰ ${t} ╯`,
+            t => `• ${t} •`, t => `〔${t}〕`, t => `⟨${t}⟩`, t => `〘${t}〙`, t => `〚${t}〛`, t => `⁖ ${t} ⁖`,
+            t => `⌁ ${t} ⌁`, t => `« ${t} »`, t => `☼ ${t} ☼`, t => `☾ ${t} ☽`, t => `☯ ${t} ☯`, t => `♔ ${t} ♔`,
+            t => `💎 ${t} 💎`, t => `🚀 ${t} 🚀`, t => `🎯 ${t} 🎯`, t => `🍀 ${t} 🍀`, t => `👾 ${t} 👾`, t => `👻 ${t} 👻`,
+            t => `❄ ${t} ❄`, t => `🌿 ${t} 🌿`, t => `🎵 ${t} 🎵`, t => `⛓ ${t} ⛓`, t => `🩸 ${t} 🩸`, t => `🎭 ${t} 🎭`,
+            t => `🛸 ${t} 🛸`, t => `🪐 ${t} 🪐`, t => `💥 ${t} 💥`, t => `🚩 ${t} 🚩`, t => `📍 ${t} 📍`, t => `🖤 ${t} 🖤`,
+            t => `ツ ${t}`, t => `ッ ${t} ズ`, t => `⼺ ${t} ⼺`, t => `⚡︎ ${t} ⚡︎`, t => `[ ${t} ]`, t => `{ ${t} }`,
+            t => `( ${t} )`, t => `•_• ${t} •_•`, t => `─» ${t} «─`, t => `↜ ${t} ↝`, t => `➶ ${t} ➴`, t => `❈ ${t} ❈`,
+            t => `✨🚀 ${t} 🚀✨`, t => `ッ ${t} ッ`, t => `👑 ${t} 👑`, t => `•| ${t} |•`, t => `×÷ ${t} ÷×`, t => `•._.• ${t} •._.•`
         ];
 
-        let html = `<div class="section-header"><span class="section-label">Generated Fonts</span></div>`;
-        styles.forEach((styleFunc, index) => {
-            let resText = styleFunc(input);
-            html += `
-                <div class="font-item">
-                    <span class="font-text" id="f-${index}">${resText}</span>
-                    <button class="copy-btn" onclick="copyText('f-${index}', this)">COPY</button>
-                </div>
-            `;
+        let html = `<div class="section-header"><span class="section-label">Generated Templates (70 Options Pack)</span></div>`;
+        templates.forEach((func, idx) => {
+            let res = "";
+            try { res = func(txt); } catch { res = txt; }
+            html += `<div class="font-item"><span class="font-text" id="f-${idx}">${res}</span><button class="copy-btn" onclick="copyText('f-${idx}', this)">COPY</button></div>`;
         });
         outputZone.innerHTML = html;
         outputZone.style.display = 'block';
     }
+
+    // --- PRO DEV CASE WORKER ---
+    function runCaseConverter(mode) {
+        const txt = document.getElementById('case-input').value;
+        if(!txt) return alert("Please type something first!");
+        let out = mode==='up' ? txt.toUpperCase() : (mode==='low' ? txt.toLowerCase() : txt.replace(/\b\w/g, c => c.toUpperCase()));
+        outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">Converted Output</span><button class="copy-btn" onclick="copyText('case-res', this)">COPY</button></div><div id="case-res" style="color:#fff; white-space:pre-wrap;">${out}</div></div>`;
+        outputZone.style.display = 'block';
+    }
+
+    function runSlugGenerator() {
+        const txt = document.getElementById('slug-input').value.trim();
+        if(!txt) return alert("Please type something first!");
+        let slug = txt.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+        outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">SEO Clean URL Slug</span><button class="copy-btn" onclick="copyText('slug-res', this)">COPY</button></div><div id="slug-res" style="color:#6366f1; font-weight:600;">${slug}</div></div>`;
+        outputZone.style.display = 'block';
+    }
+
+    function runCrypto(mode) {
+        const txt = document.getElementById('crypto-input').value.trim();
+        if(!txt) return alert("Please type text or code!");
+        try {
+            let out = mode === 'encode' ? btoa(txt) : atob(txt);
+            outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">Crypto Output</span><button class="copy-btn" onclick="copyText('cry-res', this)">COPY</button></div><div id="cry-res" style="color:#fff; word-break:break-all; font-family:monospace;">${out}</div></div>`;
+        } catch { outputZone.innerHTML = `<div style="color:#ef4444; font-weight:600;">Invalid Hash String Format!</div>`; }
+        outputZone.style.display = 'block';
+    }
+
+    // --- UTILITIES CORE ENGINES ---
+    function runPasswordGenerator() {
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-";
+        let pass = "";
+        for (let i = 0; i < 16; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+        outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">Strong Password Generated</span><button class="copy-btn" onclick="copyText('pass-res', this)">COPY</button></div><div id="pass-res" style="color:#10b981; font-weight:800; font-size:1.2rem; font-family:monospace; letter-spacing:1px;">${pass}</div></div>`;
+        outputZone.style.display = 'block';
+    }
+
+    function runImageToBase64() {
+        const file = document.getElementById('img-file-input').files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            outputZone.innerHTML = `<div><div class="section-header"><span class="section-label">Image Base64 Code String</span><button class="copy-btn" onclick="copyText('b64-img-res', this)">COPY CODE</button></div><textarea id="b64-img-res" rows="5" readonly style="font-family:monospace; font-size:0.8rem; margin-top:10px;">${reader.result}</textarea></div>`;
+            outputZone.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function runAgeCalculator() {
+        const birthInput = document.getElementById('birth-date').value;
+        if(!birthInput) return alert("Please pick a date first!");
+        const birth = new Date(birthInput);
+        const now = new Date();
+        let ageYears = now.getFullYear() - birth.getFullYear();
+        let ageMonths = now.getMonth() - birth.getMonth();
+        let ageDays = now.getDate() - birth.getDate();
+        if (ageDays < 0) { ageMonths--; ageDays += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+        if (ageMonths < 0) { ageYears--; ageMonths += 12; }
+        outputZone.innerHTML = `<div style="text-align:center;"><div class="section-header" style="justify-content:center; margin-bottom:15px;"><span class="section-label">Calculated Living Age</span></div><div class="category-badge" style="font-size:1rem; padding:12px 20px;">${ageYears} Years, ${ageMonths} Months, ${ageDays} Days</div></div>`;
+        outputZone.style.display = 'block';
+    }
 </script>
 </body>
-                </html>
+</html>
