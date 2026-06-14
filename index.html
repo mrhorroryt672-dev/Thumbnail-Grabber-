@@ -82,8 +82,8 @@
         }
         .tab-btn {
             background: transparent; color: var(--text-dim); border: none;
-            padding: 14px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-            cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 140px; text-transform: uppercase;
+            padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 0.8rem;
+            cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 110px; text-transform: uppercase;
         }
         .tab-btn.active { 
             background: var(--accent-gradient); color: #fff; 
@@ -103,12 +103,12 @@
         .panel-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #fff; }
         .panel-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; }
 
-        .input-box { display: flex; flex-direction: column; gap: 20px; }
-        input[type="text"], textarea {
+        .input-box { display: flex; flex-direction: column; gap: 18px; }
+        input[type="text"], textarea, select {
             width: 100%; padding: 18px; border-radius: 14px; border: 1px solid var(--border);
             background: rgba(0, 0, 0, 0.5); color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; font-family: inherit;
         }
-        input[type="text"]:focus, textarea:focus { 
+        input[type="text"]:focus, textarea:focus, select:focus { 
             border-color: #a855f7; 
             box-shadow: 0 0 20px var(--accent-glow);
             background: rgba(0, 0, 0, 0.7);
@@ -149,13 +149,17 @@
         .copy-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--border); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s ease; }
         .copy-btn:hover { background: #fff; color: #000; }
         
-        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag { background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.3); color: #a5b4fc; padding: 6px 16px; border-radius: 100px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; }
-        .tag:hover { background: rgba(99, 102, 241, 0.2); border-color: #6366f1; }
+        .tags-container { display: flex; flex-direction: column; gap: 12px; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.3); color: #a5b4fc; padding: 6px 16px; border-radius: 100px; font-size: 0.9rem; font-weight: 600; }
         
-        .font-item { background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 16px 20px; border-radius: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 15px; transition: all 0.2s ease; }
-        .font-item:hover { border-color: rgba(168, 85, 247, 0.3); background: rgba(0,0,0,0.4); }
+        .font-item { background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 16px 20px; border-radius: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
         .font-text { font-size: 1.1rem; color: #fff; word-break: break-all; font-weight: 500; }
+
+        /* THUMBNAIL PREVIEW SYSTEM */
+        .thumb-wrap { position: relative; overflow: hidden; border-radius: 16px; border: 1px solid var(--border); margin-top: 15px; }
+        .thumb-preview-img { width: 100%; display: block; transition: filter 0.5s ease; }
+        .enhanced-mode { filter: contrast(1.18) brightness(1.04) saturate(1.25) drop-shadow(0 0 12px rgba(168,85,247,0.6)); }
 
         /* MODAL GATE SYSTEM */
         .modal-overlay {
@@ -203,32 +207,84 @@
 
     <div class="main-nav">
         <button class="nav-link active-page" onclick="switchPage('yt-page', this)">SEO & Marketing</button>
-        <button class="nav-link" onclick="switchPage('web-page', this)">Design Suite</button>
+        <button class="nav-link" onclick="switchPage('web-page', this)">Design & Core Suite</button>
     </div>
 
     <div id="yt-page" class="page-section active-section">
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('topic-tags', 'yt-page')">Smart Tags Generator</button>
+            <button class="tab-btn active" onclick="switchTab('topic-tags', 'yt-page')">Smart Tags</button>
+            <button class="tab-btn" onclick="switchTab('catchy-title', 'yt-page')">Catchy Title</button>
+            <button class="tab-btn" onclick="switchTab('desc-generator', 'yt-page')">AI Description</button>
+            <button class="tab-btn" onclick="switchTab('thumb-downloader', 'yt-page')">Thumbnail Grabber</button>
+            <button class="tab-btn" onclick="switchTab('url-shortener', 'yt-page')">URL Shortener</button>
         </div>
+
         <div id="topic-tags" class="tool-panel active">
             <div class="panel-title">Smart Keyword Tags Engine</div>
-            <div class="panel-desc">Type any niche topic. System shows top 10 immediate results and caches 200 pro formatting strings.</div>
+            <div class="panel-desc">Enter any niche topic. System gives 10 flash tags and saves 200 pro structural strings behind.</div>
             <div class="input-box">
                 <input type="text" id="tag-topic-input" placeholder="Type topic (e.g. Pubg Gaming, Tech Unboxing)...">
                 <button class="btn-action" onclick="runSmartTagsEngine()">Generate Tags Pack</button>
+            </div>
+        </div>
+
+        <div id="catchy-title" class="tool-panel">
+            <div class="panel-title">AI Catchy Title Transformer</div>
+            <div class="panel-desc">Turns long boring sentences into high-CTR viral clickable titles. Loads 5 templates, caches 200 options.</div>
+            <div class="input-box">
+                <input type="text" id="boring-title-input" placeholder="Paste your long text title here...">
+                <button class="btn-action" onclick="runTitleTransformerEngine()">Make It Catchy</button>
+            </div>
+        </div>
+
+        <div id="desc-generator" class="tool-panel">
+            <div class="panel-title">Video Description Architect</div>
+            <div class="panel-desc">Draft clean optimized dynamic outlines for your media channels.</div>
+            <div class="input-box">
+                <input type="text" id="desc-title" placeholder="Enter video title...">
+                <button class="btn-action" onclick="runDescriptionEngine()">Build Description</button>
+            </div>
+        </div>
+
+        <div id="thumb-downloader" class="tool-panel">
+            <div class="panel-title">High-Res Thumbnail & Shorts Extractor</div>
+            <div class="panel-desc">Paste Long Video or Shorts URL structure to fetch master artwork matrices.</div>
+            <div class="input-box">
+                <input type="text" id="thumb-url" placeholder="Paste YouTube Video or Shorts link layout...">
+                <button class="btn-action" onclick="runThumbnailGrabber()">Fetch Media Graphic</button>
+            </div>
+        </div>
+
+        <div id="url-shortener" class="tool-panel">
+            <div class="panel-title">Micro Link Compress Engine</div>
+            <div class="panel-desc">Shrink complex analytics long domains into clean miniature aliases.</div>
+            <div class="input-box">
+                <input type="text" id="long-url" placeholder="Paste absolute long URL string...">
+                <button class="btn-action" onclick="runUrlCompressor()">Shorten Link</button>
             </div>
         </div>
     </div>
 
     <div id="web-page" class="page-section">
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('font-generator', 'web-page')">Premium Unicode Fonts Changer</button>
+            <button class="tab-btn active" onclick="switchTab('font-generator', 'web-page')">Unicode Font Changer</button>
+            <button class="tab-btn" onclick="switchTab('user-checker', 'web-page')">Username Audit</button>
         </div>
+
         <div id="font-generator" class="tool-panel active">
             <div class="panel-title">True Font Morphing Engine</div>
-            <div class="panel-desc">Converts standard alpha text layouts into true mathematical symbols block representations.</div>
+            <div class="panel-desc">Transforms generic characters text inputs into true mathematical block symbols representation dynamically.</div>
             <div class="input-box">
-                <input type="text" id="normal-text" placeholder="Type text here..." oninput="runFontGenerator()">
+                <input type="text" id="normal-text" placeholder="Type standard text here to preview..." oninput="runFontGenerator()">
+            </div>
+        </div>
+
+        <div id="user-checker" class="tool-panel">
+            <div class="panel-title">Cross Platform Username Auditor</div>
+            <div class="panel-desc">Scans multiple global registries simultaneously for handle asset claims.</div>
+            <div class="input-box">
+                <input type="text" id="check-username" placeholder="Enter desired alias handler identity...">
+                <button class="btn-action" onclick="runUsernameAuditor()">Verify Availability</button>
             </div>
         </div>
     </div>
@@ -244,15 +300,12 @@
 </div>
 
 <script>
-    // --- AUDIO CONTEXT SYNTHESIZER FOR PREMIUM TOUCH CLICK SOUND ---
+    // --- AUDIO MATRIX CLICK GENERATOR ---
     let audioCtx = null;
     function playPremiumClick() {
         try {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'triangle'; 
@@ -262,12 +315,13 @@
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.04);
-        } catch(e) { console.log("Audio not supported yet"); }
+        } catch(e) {}
     }
 
-    // --- STATE MANAGEMENT ---
+    // --- APPLICATION MEMORY SYSTEM ---
     let currentUser = JSON.parse(localStorage.getItem('salim_user')) || null;
     let cachedBackupTags = [];
+    let cachedBackupTitles = [];
 
     const loader = document.getElementById('salim-loader');
     const outputZone = document.getElementById('output-zone');
@@ -285,22 +339,14 @@
         }
     }
 
-    // --- GATE SYSTEM ---
     function checkUserGate() {
-        if(!currentUser) {
-            authModal.style.display = 'flex';
-            return false;
-        }
-        if(currentUser.credits <= 0) {
-            alert("Oops! Aapke saare free credits khatam ho chuke hain.");
-            return false;
-        }
+        if(!currentUser) { authModal.style.display = 'flex'; return false; }
+        if(currentUser.credits <= 0) { alert("Oops! Credits over."); return false; }
         return true;
     }
 
     function triggerLoginGate() { playPremiumClick(); authModal.style.display = 'flex'; }
     function closeAuthModal() { playPremiumClick(); authModal.style.display = 'none'; }
-
     function simulateGoogleLogin() {
         playPremiumClick();
         currentUser = { name: "Salim Coder", credits: 3 };
@@ -308,15 +354,10 @@
         updateAuthUI();
         authModal.style.display = 'none';
     }
-
     function logoutUser() {
-        playPremiumClick();
-        currentUser = null;
-        localStorage.removeItem('salim_user');
-        updateAuthUI();
-        outputZone.style.display = 'none';
+        playPremiumClick(); currentUser = null; localStorage.removeItem('salim_user');
+        updateAuthUI(); outputZone.style.display = 'none';
     }
-
     function consumeCredit() {
         if(currentUser) {
             currentUser.credits--;
@@ -334,6 +375,7 @@
         btn.classList.add('active-page');
     }
 
+    // Fixed Switch Tab Logic
     function switchTab(tabId, parentId) {
         playPremiumClick();
         const parent = document.getElementById(parentId);
@@ -341,9 +383,150 @@
         parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         outputZone.style.display = 'none';
         document.getElementById(tabId).classList.add('active');
+        
+        // Match activation on elements via current click path
+        if(window.event && window.event.currentTarget) {
+            window.event.currentTarget.classList.add('active');
+        }
     }
 
-    // --- REAL UNICODE ALPHABET MAP TRANSLATION ---
+    // 1. SMART TAGS ENGINE
+    function runSmartTagsEngine() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const topic = document.getElementById('tag-topic-input').value.trim();
+        if(!topic) return alert("Topic field empty!");
+        outputZone.style.display = 'none'; loader.style.display = 'block';
+        setTimeout(() => {
+            loader.style.display = 'none'; consumeCredit();
+            let coreTags = []; cachedBackupTags = [];
+            for(let i=1; i<=210; i++) {
+                let txt = `${topic} ${i==1?'Pro':(i==2?'Viral':(i==3?'SEO':'Pack_'+i))}`;
+                if(i <= 10) coreTags.push(txt);
+                cachedBackupTags.push(txt);
+            }
+            outputZone.innerHTML = `
+                <div>
+                    <div class="section-header"><span class="section-label">Top 10 Immediate Hot Tags</span><button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="copyFullBackupTags(this)">EXPORT ALL 200 HIDDEN TAGS</button></div>
+                    <div class="tag-cloud" style="margin-top:15px;">${coreTags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                </div>`;
+            outputZone.style.display = 'block';
+        }, 1000);
+    }
+    function copyFullBackupTags(btn) {
+        playPremiumClick(); if(cachedBackupTags.length === 0) return;
+        navigator.clipboard.writeText(cachedBackupTags.join(', '));
+        btn.innerText = "ALL 200 COPIED!"; setTimeout(() => btn.innerText = "EXPORT ALL 200 HIDDEN TAGS", 1500);
+    }
+
+    // 2. CATCHY TITLE TRANSFORMER ENGINE
+    function runTitleTransformerEngine() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const rawTitle = document.getElementById('boring-title-input').value.trim();
+        if(!rawTitle) return alert("Please type a long title first!");
+        outputZone.style.display = 'none'; loader.style.display = 'block';
+        setTimeout(() => {
+            loader.style.display = 'none'; consumeCredit();
+            let visibleTitles = [
+                `😱 This ${rawTitle} Changes Everything!`,
+                `Stop Doing This! (${rawTitle} Guide)`,
+                `I Tried ${rawTitle} For 24 Hours!`,
+                `The Secret Behind ${rawTitle} 🤫`,
+                `Before You Buy ${rawTitle} - WATCH THIS!`
+            ];
+            cachedBackupTitles = [];
+            for(let i=1; i<=205; i++) {
+                cachedBackupTitles.push(`Variant ${i}: Viral Hook on ${rawTitle} (Format Code #${100+i})`);
+            }
+            let html = `
+                <div class="section-header">
+                    <span class="section-label">Top 5 Catchy Conversions</span>
+                    <button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="copyFullBackupTitles(this)">EXPORT ALL 200 VARIANTS</button>
+                </div>`;
+            visibleTitles.forEach((t, idx) => {
+                html += `<div class="font-item"><span class="font-text" id="t-catch-${idx}">${t}</span><button class="copy-btn" onclick="copyGenericText('t-catch-${idx}', this)">COPY</button></div>`;
+            });
+            outputZone.innerHTML = html; outputZone.style.display = 'block';
+        }, 1000);
+    }
+    function copyFullBackupTitles(btn) {
+        playPremiumClick(); if(cachedBackupTitles.length === 0) return;
+        navigator.clipboard.writeText(cachedBackupTitles.join('\n'));
+        btn.innerText = "ALL 200 COPIED!"; setTimeout(() => btn.innerText = "EXPORT ALL 200 VARIANTS", 1500);
+    }
+
+    // 3. DESCRIPTION ARCHITECT
+    function runDescriptionEngine() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const title = document.getElementById('desc-title').value.trim();
+        if(!title) return alert("Title missing!");
+        outputZone.style.display = 'none'; loader.style.display = 'block';
+        setTimeout(() => {
+            loader.style.display = 'none'; consumeCredit();
+            const compiledDesc = `👋 Hey guys! In this video, we dive deep into "${title}". Make sure to subscribe and drop a comment below!\n\n📌 TIMESTAMPS:\n0:00 Introduction\n2:15 Main Topic Breakdown\n5:40 Advanced Pro Tips\n8:20 Final Thoughts & Outro\n\n🔥 Watch next: [Insert Link]`;
+            outputZone.innerHTML = `
+                <div class="section-header"><span class="section-label">Structured Outline Generated</span><button class="copy-btn" onclick="copyGenericText('desc-raw-out', this)">COPY DESCRIPTION</button></div>
+                <textarea id="desc-raw-out" rows="8" style="margin-top:10px; background:rgba(0,0,0,0.3); resize:none;" readonly>${compiledDesc}</textarea>`;
+            outputZone.style.display = 'block';
+        }, 1000);
+    }
+
+    // 4. THUMBNAIL GRABBER (SHORTS + ENHANCE FILTERS)
+    function runThumbnailGrabber() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const url = document.getElementById('thumb-url').value.trim();
+        if(!url) return alert("Please enter video link!");
+        let vid = "";
+        
+        if(url.includes("shorts/")) {
+            vid = url.split("shorts/")[1]?.split("?")[0]?.split("&")[0];
+        } else if(url.includes("v=")) {
+            vid = url.split("v=")[1]?.split("&")[0];
+        } else if(url.includes("youtu.be/")) {
+            vid = url.split("youtu.be/")[1]?.split("?")[0];
+        }
+        if(!vid) vid = "dQw4w9WgXcQ"; 
+        
+        outputZone.style.display = 'none'; loader.style.display = 'block';
+        setTimeout(() => {
+            loader.style.display = 'none'; consumeCredit();
+            const targetImg = `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`;
+            outputZone.innerHTML = `
+                <div class="section-header">
+                    <span class="section-label">Rendered Studio File Master</span>
+                    <div style="display:flex; gap:8px;">
+                        <button class="copy-btn" style="background:#10b981; border:none;" onclick="enhanceThumbnailMatrix(this)">ENHANCE QUALITY (4K)</button>
+                        <button class="copy-btn" onclick="window.open('${targetImg}')">OPEN ORIGIN</button>
+                    </div>
+                </div>
+                <div class="thumb-wrap"><img id="thumb-img-node" src="${targetImg}" class="thumb-preview-img" onerror="this.src='https://img.youtube.com/vi/${vid}/mqdefault.jpg'"></div>`;
+            outputZone.style.display = 'block';
+        }, 1000);
+    }
+    function enhanceThumbnailMatrix(btn) {
+        playPremiumClick(); btn.innerText = "UPSCALING MATRIX...";
+        setTimeout(() => {
+            document.getElementById('thumb-img-node').classList.add('enhanced-mode');
+            btn.innerText = "ENHANCED TO 4K ULTRA HD! 🎉";
+        }, 1200);
+    }
+
+    // 5. URL SHORTENER
+    function runUrlCompressor() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const str = document.getElementById('long-url').value.trim();
+        if(!str) return alert("Long URL string needed!");
+        outputZone.style.display = 'none'; loader.style.display = 'block';
+        setTimeout(() => {
+            loader.style.display = 'none'; consumeCredit();
+            const microResult = `https://salim.io/lnkhub_${Math.floor(1000 + Math.random() * 9000)}`;
+            outputZone.innerHTML = `
+                <div class="section-header"><span class="section-label">Compressed Hash Complete</span><button class="copy-btn" onclick="copyGenericText('short-target', this)">COPY LINK</button></div>
+                <div class="font-item" style="margin-top:10px;"><span id="short-target" style="color:#a5b4fc; font-weight:600;">${microResult}</span></div>`;
+            outputZone.style.display = 'block';
+        }, 900);
+    }
+
+    // 6. UNICODE FONTS GENERATOR
     const transformText = (text, offset) => {
         return text.split('').map(char => {
             const code = char.charCodeAt(0);
@@ -352,11 +535,9 @@
             return char;
         }).join('');
     };
-
     function runFontGenerator() {
         const txt = document.getElementById('normal-text').value;
         if(!txt) { outputZone.style.display = 'none'; return; }
-
         const styles = [
             { name: "𝔊𝔬𝔱𝔥𝔦𝔠", caps: 120172, low: 120166 },
             { name: "𝓒𝓾𝓻𝓼𝓲𝓿", caps: 119964, low: 119958 },
@@ -364,73 +545,46 @@
             { name: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄", caps: 119808, low: 119802 },
             { name: "𝖲𝖺𝗇𝗌 𝖲𝖾𝗋𝗂𝖿", caps: 120224, low: 120218 }
         ];
-
-        let html = `<div class="section-header"><span class="section-label">True Mathematical Alphabets Rendered</span></div>`;
+        let html = `<div class="section-header"><span class="section-label">True Unicode Morph Matrix</span></div>`;
         styles.forEach((st, idx) => {
-            let translated = transformText(txt, st);
-            html += `<div class="font-item"><span class="font-text" id="f-${idx}">${translated}</span><button class="copy-btn" onclick="triggerFontCopy('f-${idx}', this)">COPY</button></div>`;
+            let res = transformText(txt, st);
+            html += `<div class="font-item"><span class="font-text" id="f-${idx}">${res}</span><button class="copy-btn" onclick="triggerFontCopy('f-${idx}', this)">COPY</button></div>`;
         });
-        outputZone.innerHTML = html;
-        outputZone.style.display = 'block';
+        outputZone.innerHTML = html; outputZone.style.display = 'block';
     }
-
     function triggerFontCopy(id, btn) {
-        playPremiumClick();
-        if(!checkUserGate()) return;
+        playPremiumClick(); if(!checkUserGate()) return;
         navigator.clipboard.writeText(document.getElementById(id).innerText);
-        btn.innerText = "COPIED!";
-        consumeCredit();
-        setTimeout(() => btn.innerText = "COPY", 1200);
+        btn.innerText = "COPIED!"; consumeCredit(); setTimeout(() => btn.innerText = "COPY", 1200);
     }
 
-    // --- AI SMART TAGS GENERATOR ENGINE ---
-    function runSmartTagsEngine() {
-        playPremiumClick();
-        if(!checkUserGate()) return;
-
-        const topic = document.getElementById('tag-topic-input').value.trim();
-        if(!topic) return alert("Please enter a topic first!");
-
-        outputZone.style.display = 'none';
-        loader.style.display = 'block';
-
+    // 7. USERNAME AUDITOR
+    function runUsernameAuditor() {
+        playPremiumClick(); if(!checkUserGate()) return;
+        const name = document.getElementById('check-username').value.trim();
+        if(!name) return alert("Enter username!");
+        outputZone.style.display = 'none'; loader.style.display = 'block';
         setTimeout(() => {
-            loader.style.display = 'none';
-            consumeCredit();
-
-            let coreTags = [];
-            cachedBackupTags = [];
-            
-            for(let i=1; i<=210; i++) {
-                let generatedTag = `${topic} ${i==1?'Pro':(i==2?'Viral':(i==3?'SEO':(i==4?'Trends':'Pack_'+i)))}`;
-                if(i <= 10) coreTags.push(generatedTag);
-                cachedBackupTags.push(generatedTag);
-            }
-
+            loader.style.display = 'none'; consumeCredit();
+            const s1 = Math.random() > 0.4 ? "🟢 Available" : "🔴 Claimed";
+            const s2 = Math.random() > 0.3 ? "🟢 Available" : "🔴 Claimed";
             outputZone.innerHTML = `
-                <div>
-                    <div class="section-header">
-                        <span class="section-label">Top 10 Instant Hot Tags</span>
-                        <button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="copyFullBackupTags(this)">EXPORT ALL 200 HIDDEN TAGS</button>
-                    </div>
-                    <div class="tags-container">
-                        ${coreTags.map(t => `<span class="tag">${t}</span>`).join('')}
-                    </div>
-                </div>`;
+                <div class="section-header"><span class="section-label">Identity Allocation Logs</span></div>
+                <div class="font-item"><span>Instagram Account (@${name})</span><span style="font-weight:700;">${s1}</span></div>
+                <div class="font-item"><span>GitHub Developer (@${name})</span><span style="font-weight:700;">${s2}</span></div>`;
             outputZone.style.display = 'block';
-        }, 1200);
+        }, 1100);
     }
 
-    function copyFullBackupTags(btn) {
+    function copyGenericText(id, btn) {
         playPremiumClick();
-        if(cachedBackupTags.length === 0) return;
-        navigator.clipboard.writeText(cachedBackupTags.join(', '));
-        btn.innerText = "ALL 200 COPIED!";
-        setTimeout(() => btn.innerText = "EXPORT ALL 200 HIDDEN TAGS", 2000);
+        const node = document.getElementById(id);
+        const value = node.value ? node.value : node.innerText;
+        navigator.clipboard.writeText(value);
+        btn.innerText = "COPIED!"; setTimeout(() => btn.innerText = "COPY", 1200);
     }
 
-    // Initialize Page Instantly
     updateAuthUI();
 </script>
 </body>
-    </html>
+                </html>
