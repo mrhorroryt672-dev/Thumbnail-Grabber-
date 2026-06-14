@@ -3,735 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salim's Premium SaaS Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Salim Studio Pro AI</title>
+    <script>
+       
+        const permanentApiKey = "AQ.Ab8RN6Lib4phkG6y0_EalUbt9MIrDccMT_6wy-9cxB0evk0Z8w";
+    </script>
     <style>
-        :root {
-            --bg: #0b0f19;
-            --glass: rgba(17, 24, 39, 0.75);
-            --border: rgba(255, 255, 255, 0.08);
-            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            --accent-glow: rgba(168, 85, 247, 0.35);
-            --text-main: #f3f4f6;
-            --text-dim: #9ca3af;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
-            color: var(--text-main);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .container { max-width: 900px; margin: 0 auto; }
-
-        /* PREMIUM USER CONTROL BAR */
-        .user-status-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--glass); border: 1px solid var(--border); padding: 14px 24px;
-            border-radius: 20px; margin-bottom: 30px; backdrop-filter: blur(16px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-        }
-        .user-info { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.95rem; }
-        .credit-badge { 
-            background: linear-gradient(135deg, #f59e0b 0%, #e11d48 100%); 
-            color: #fff; padding: 6px 14px; border-radius: 10px; font-size: 0.8rem; font-weight: 800;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
-        }
-        .btn-login { 
-            background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 12px; 
-            font-weight: 700; cursor: pointer; font-size: 0.85rem; transition: all 0.3s ease; 
-        }
-        .btn-login:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(255,255,255,0.25); }
-
-        header { text-align: center; margin-bottom: 40px; }
-        header h1 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; color: #fff; }
-        header h1 span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        header p { color: var(--text-dim); font-size: 1rem; font-weight: 400; }
-
-        /* MULTI-PAGE TOP NAVBAR */
-        .main-nav {
-            display: flex; gap: 12px; margin-bottom: 40px; border-bottom: 1px solid var(--border);
-            padding-bottom: 15px; justify-content: center; flex-wrap: wrap;
-        }
-        .nav-link {
-            background: transparent; border: none; color: var(--text-dim);
-            font-size: 1rem; font-weight: 700; padding: 12px 24px; cursor: pointer;
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
-            position: relative;
-        }
-        .nav-link.active-page { color: #fff; }
-        .nav-link.active-page::after {
-            content: ''; position: absolute; bottom: -17px; left: 0; width: 100%; height: 3px;
-            background: var(--accent-gradient); border-radius: 3px;
-        }
-
-        /* INNER SUB TABS */
-        .tabs-nav {
-            display: flex; gap: 8px; justify-content: center; margin-bottom: 30px;
-            background: rgba(255,255,255,0.03); padding: 6px; border-radius: 16px;
-            border: 1px solid var(--border); flex-wrap: wrap;
-        }
-        .tab-btn {
-            background: transparent; color: var(--text-dim); border: none;
-            padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 0.8rem;
-            cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 110px; text-transform: uppercase;
-        }
-        .tab-btn.active { 
-            background: var(--accent-gradient); color: #fff; 
-            box-shadow: 0 4px 20px var(--accent-glow); 
-        }
-
-        /* PANELS */
-        .page-section { display: none; }
-        .page-section.active-section { display: block; }
-        .tool-panel {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--border); border-radius: 28px; padding: 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); display: none;
-        }
-        .tool-panel.active { display: block; }
-
-        .panel-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #fff; }
-        .panel-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; }
-
-        .input-box { display: flex; flex-direction: column; gap: 18px; }
-        input[type="text"], textarea, select {
-            width: 100%; padding: 18px; border-radius: 14px; border: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.5); color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; font-family: inherit;
-        }
-        input[type="text"]:focus, textarea:focus, select:focus { 
-            border-color: #a855f7; 
-            box-shadow: 0 0 20px var(--accent-glow);
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .btn-action {
-            width: 100%; padding: 18px; border-radius: 14px; border: none;
-            background: var(--accent-gradient); color: #fff; font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .btn-action:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 25px var(--accent-glow); 
-        }
-
-        /* BRANDED LOADING SCREEN */
-        .salim-loading-zone {
-            display: none; text-align: center; padding: 40px;
-            background: var(--glass); border: 1px solid var(--border); border-radius: 28px; margin-top: 30px;
-        }
-        .salim-logo-spinner { position: relative; width: 80px; height: 80px; margin: 0 auto 20px auto; }
-        .inner-core {
-            position: absolute; width: 100%; height: 100%; border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 2rem; color: #fff; animation: spinAndColor 3s linear infinite;
-        }
-        .loading-text { font-size: 1rem; font-weight: 600; letter-spacing: 1.5px; color: #cbd5e1; text-transform: uppercase; }
-
-        @keyframes spinAndColor {
-            0% { transform: rotate(0deg); background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 25px rgba(99,102,241,0.7); }
-            50% { background: linear-gradient(135deg, #ec4899, #f43f5e); box-shadow: 0 0 25px rgba(244,63,94,0.7); }
-            100% { transform: rotate(360deg); background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 25px rgba(99,102,241,0.7); }
-        }
-
-        /* OUTPUT SYSTEM */
-        .result-card { display: none; background: var(--glass); border: 1px solid var(--border); border-radius: 28px; padding: 30px; margin-top: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;}
-        .section-label { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; }
-        .copy-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--border); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s ease; }
-        .copy-btn:hover { background: #fff; color: #000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: #090d16; color: #f1f5f9; padding: 15px; padding-bottom: 60px; }
         
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag { background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.3); color: #a5b4fc; padding: 6px 16px; border-radius: 100px; font-size: 0.9rem; font-weight: 600; }
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #111827; border-radius: 12px; margin-bottom: 15px; border: 1px solid #1f2937; position: relative; }
+        .brand h1 { font-size: 20px; color: #38bdf8; font-weight: 800; }
+        .brand p { font-size: 11px; color: #94a3b8; }
         
-        .font-item { background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 16px 20px; border-radius: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-        .font-text { font-size: 1.1rem; color: #fff; word-break: break-all; font-weight: 500; }
+        /* AI Dropdown Button */
+        .ai-dropdown-btn { background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4); }
+        .ai-menu { display: none; position: absolute; right: 15px; top: 65px; background: #1f2937; border-radius: 10px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 100; border: 1px solid #374151; overflow: hidden; }
+        .ai-menu button { width: 100%; background: none; border: none; color: #e2e8f0; padding: 12px 15px; text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; border-bottom: 1px solid #374151; transition: 0.2s; }
+        .ai-menu button:hover { background: #374151; color: #a855f7; }
 
-        /* THUMBNAIL PREVIEW SYSTEM */
-        .thumb-wrap { position: relative; overflow: hidden; border-radius: 16px; border: 1px solid var(--border); margin-top: 15px; }
-        .thumb-preview-img { width: 100%; display: block; transition: filter 0.5s ease; }
-        .enhanced-mode { filter: contrast(1.18) brightness(1.04) saturate(1.25) drop-shadow(0 0 12px rgba(168,85,247,0.6)); }
+        /* Main Tabs (Normal Features) */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; background: #111827; padding: 5px; border-radius: 10px; }
+        .tab-btn { flex: 1; background: none; border: none; color: #94a3b8; padding: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; font-size: 14px; }
+        .tab-btn.active { background: #38bdf8; color: #090d16; }
 
-        /* MODAL GATE SYSTEM */
-        .modal-overlay {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px); z-index: 9999;
-            align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background: #0f172a; border: 1px solid var(--border); padding: 45px;
-            border-radius: 32px; max-width: 440px; width: 90%; text-align: center;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.7);
-        }
-        .modal-content h3 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 800; color: #fff; }
-        .modal-content p { color: var(--text-dim); font-size: 1rem; line-height: 1.6; margin-bottom: 30px; }
+        /* Content Sections */
+        .section { display: none; background: #111827; padding: 20px; border-radius: 12px; border: 1px solid #1f2937; margin-bottom: 20px; }
+        .section.active { display: block; }
+        
+        h3 { font-size: 18px; margin-bottom: 8px; color: #f8fafc; display: flex; align-items: center; gap: 8px; }
+        p.desc { font-size: 12px; color: #94a3b8; margin-bottom: 15px; }
 
-        footer { text-align: center; margin-top: 80px; padding: 30px; border-top: 1px solid var(--border); color: var(--text-dim); font-weight: 800; letter-spacing: 2px; font-size: 0.85rem; }
-        .salim-badge { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        input, textarea, select { width: 100%; padding: 12px; margin-bottom: 12px; background: #090d16; border: 1px solid #374151; color: white; border-radius: 8px; font-size: 14px; }
+        input:focus, textarea:focus { border-color: #38bdf8; outline: none; }
+
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; background: #38bdf8; color: #090d16; transition: 0.2s; }
+        .btn:hover { background: #0ea5e9; }
+        .btn-ai { background: linear-gradient(135deg, #a855f7, #6366f1); color: white; }
+
+        /* Outputs */
+        .output-box { background: #090d16; padding: 15px; border-radius: 8px; border: 1px solid #27272a; margin-top: 15px; font-size: 14px; line-height: 1.6; color: #cbd5e1; white-space: pre-wrap; }
+        
+        .font-item { background: #090d16; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #a855f7; }
     </style>
 </head>
 <body>
 
-<div class="modal-overlay" id="auth-modal">
-    <div class="modal-content">
-        <h3>🔐 Premium Access</h3>
-        <p>Bina login aap features sirf dekh sakte hain. Is tool ko use karne ke liye Google account se instant sign-up karein aur 3 Free Credits paayein!</p>
-        <button class="btn-action" onclick="simulateGoogleLogin()">Continue with Google</button>
-        <button class="btn-sub" style="margin-top:15px; background:transparent; border:none; color:var(--text-dim); width:100%; cursor:pointer; font-weight:600;" onclick="closeAuthModal()">Cancel</button>
-    </div>
-</div>
-
-<div class="container">
-    <div class="user-status-bar">
-        <div class="user-info" id="user-display">
-            <span>Guest Viewer</span>
+    <div class="navbar">
+        <div class="brand">
+            <h1>Salim Studio AI</h1>
+            <p>Future of Smart Apps</p>
         </div>
-        <div id="auth-action-area">
-            <button class="btn-login" onclick="triggerLoginGate()">Google Sign-In</button>
-        </div>
-    </div>
-
-    <header>
-        <h1>SALIM'S <span>STUDIO PRO</span></h1>
-        <p>SaaS Multitool Web Architecture Suite</p>
-    </header>
-
-    <div class="main-nav">
-        <button class="nav-link active-page" onclick="switchPage('yt-page', this)">SEO & Marketing</button>
-        <button class="nav-link" onclick="switchPage('web-page', this)">Design & Core Suite</button>
-        <button class="nav-link" onclick="switchPage('privacy-page', this)">Privacy Suite</button>
-    </div>
-
-    <div id="yt-page" class="page-section active-section">
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('topic-tags', 'yt-page')">Smart Tags</button>
-            <button class="tab-btn" onclick="switchTab('catchy-title', 'yt-page')">Catchy Title</button>
-            <button class="tab-btn" onclick="switchTab('desc-generator', 'yt-page')">AI Description</button>
-            <button class="tab-btn" onclick="switchTab('thumb-downloader', 'yt-page')">Thumbnail Grabber</button>
-            <button class="tab-btn" onclick="switchTab('url-shortener', 'yt-page')">URL Shortener</button>
-        </div>
-
-        <div id="topic-tags" class="tool-panel active">
-            <div class="panel-title">Smart Keyword Tags Engine</div>
-            <div class="panel-desc">Enter any niche topic. System gives 10 flash tags and saves 200 pro structural strings behind.</div>
-            <div class="input-box">
-                <input type="text" id="tag-topic-input" placeholder="Type topic (e.g. Pubg Gaming, Tech Unboxing)...">
-                <button class="btn-action" onclick="runSmartTagsEngine()">Generate Tags Pack</button>
-            </div>
-        </div>
-
-        <div id="catchy-title" class="tool-panel">
-            <div class="panel-title">AI Catchy Title Transformer</div>
-            <div class="panel-desc">Turns long boring sentences into high-CTR viral clickable titles. Loads 5 templates, caches 200 options.</div>
-            <div class="input-box">
-                <input type="text" id="boring-title-input" placeholder="Paste your long text title here...">
-                <button class="btn-action" onclick="runTitleTransformerEngine()">Make It Catchy</button>
-            </div>
-        </div>
-
-        <div id="desc-generator" class="tool-panel">
-            <div class="panel-title">Video Description Architect</div>
-            <div class="panel-desc">Draft clean optimized dynamic outlines for your media channels.</div>
-            <div class="input-box">
-                <input type="text" id="desc-title" placeholder="Enter video title...">
-                <button class="btn-action" onclick="runDescriptionEngine()">Build Description</button>
-            </div>
-        </div>
-
-        <div id="thumb-downloader" class="tool-panel">
-            <div class="panel-title">High-Res Thumbnail & Shorts Extractor</div>
-            <div class="panel-desc">Paste YouTube Video or Shorts link layout to grab and enhance file up to 4K resolution instantly.</div>
-            <div class="input-box">
-                <input type="text" id="thumb-url" placeholder="Paste YouTube Video or Shorts link layout...">
-                <button class="btn-action" onclick="runThumbnailGrabber()">Fetch Media Graphic</button>
-            </div>
-        </div>
-
-        <div id="url-shortener" class="tool-panel">
-            <div class="panel-title">Micro Link Compress Engine</div>
-            <div class="panel-desc">Shrink complex analytics long domains into clean miniature aliases.</div>
-            <div class="input-box">
-                <input type="text" id="long-url" placeholder="Paste absolute long URL string...">
-                <button class="btn-action" onclick="runUrlCompressor()">Shorten Link</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="web-page" class="page-section">
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('font-generator', 'web-page')">Unicode Font Changer</button>
-            <button class="tab-btn" onclick="switchTab('font-downloader-panel', 'web-page')">200+ Font Downloader</button>
-            <button class="tab-btn" onclick="switchTab('user-checker', 'web-page')">Username Audit</button>
-        </div>
-
-        <div id="font-generator" class="tool-panel active">
-            <div class="panel-title">True Font Morphing Engine</div>
-            <div class="panel-desc">Transforms generic characters text inputs into structural block symbols representation dynamically.</div>
-            <div class="input-box">
-                <input type="text" id="normal-text" placeholder="Type standard text here to preview..." oninput="runFontGenerator()">
-                <button class="btn-action" style="background:rgba(255,255,255,0.05); border:1px solid var(--border);" onclick="regenerateUnicodeStyles()">Regenerate Styles 🔄</button>
-            </div>
-        </div>
-
-        <div id="font-downloader-panel" class="tool-panel">
-            <div class="panel-title">Any-Word Font Asset Pack Compiler</div>
-            <div class="panel-desc">Type any specific custom word or search from our 200 pro structural catalogs to extract matching true .ttf font vectors.</div>
-            <div class="input-box">
-                <input type="text" id="font-search-input" placeholder="Type your custom font name or word here..." oninput="searchFontsEngine()">
-                <button class="btn-action" onclick="searchFontsEngine()">Compile Font Downloads</button>
-            </div>
-        </div>
-
-        <div id="user-checker" class="tool-panel">
-            <div class="panel-title">Cross Platform Username Auditor</div>
-            <div class="panel-desc">Scans multiple global registries simultaneously for handle asset claims.</div>
-            <div class="input-box">
-                <input type="text" id="check-username" placeholder="Enter desired alias handler identity...">
-                <button class="btn-action" onclick="runUsernameAuditor()">Verify Availability</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="privacy-page" class="page-section">
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('temp-email-panel', 'privacy-page')">Temp Email Generator</button>
-        </div>
-
-        <div id="temp-email-panel" class="tool-panel active">
-            <div class="panel-title">Secure Temporary Inbox</div>
-            <div class="panel-desc">Generate safe burner nodes anonymously. Click regenerate to instantly flush active matrix coordinates for an endless unique pipeline.</div>
-            <div class="input-box">
-                <button class="btn-action" onclick="generateTempMailEngine()">Generate New Temp Email</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="salim-loading-zone" id="salim-loader">
-        <div class="salim-logo-spinner"><div class="inner-core">S</div></div>
-        <div class="loading-text">Extracting Secure Data Matrices...</div>
-    </div>
-
-    <div id="output-zone" class="result-card"></div>
-
-    <footer>OWNER OF THIS WEBSITE IS <span class="salim-badge">SALIM</span></footer>
-</div>
-
-<script>
-    // --- AUDIO MATRIX CLICK GENERATOR ---
-    let audioCtx = null;
-    function playPremiumClick() {
-        try {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'triangle'; 
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
-            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.04);
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.04);
-        } catch(e) {}
-    }
-
-    // --- APPLICATION MEMORY SYSTEM ---
-    let currentUser = JSON.parse(localStorage.getItem('salim_user')) || null;
-    let cachedBackupTags = [];
-    let cachedBackupTitles = [];
-    
-    // Core Virtual Font Engine Data Matrix (200 Units Master Layout)
-    const MASTER_FONTS_DB = [];
-    const fontFamilies = ["Poppins", "Montserrat", "Roboto", "Inter", "Oswald", "Gothic", "Cinematic", "Slab", "TechFuture", "AuraNeon", "Helvetica", "Futura", "BebasNeue", "Playfair", "Lato", "Raleway", "Ubuntu", "OpenSans", "Nunito", "FiraCode"];
-    const fontWeights = ["Thin", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black", "Italic", "UltraMax"];
-    
-    let counter = 1;
-    fontFamilies.forEach(f => {
-        fontWeights.forEach(w => {
-            MASTER_FONTS_DB.push({ id: counter++, name: `${f} ${w}`, size: `${(Math.random() * (4.2 - 1.2) + 1.2).toFixed(1)} MB`, format: "TTF" });
-        });
-    });
-
-    let unicodeOffsets = [
-        { name: "𝔊𝔬𝔱𝔥𝔦𝔠", caps: 120172, low: 120166 },
-        { name: "𝓒𝓾𝓻𝓼𝓲𝓿", caps: 119964, low: 119958 },
-        { name: "𝕄𝕒𝕥𝕙 𝔻𝕠𝕦𝕓𝕝𝕖", caps: 120120, low: 120114 },
-        { name: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄", caps: 119808, low: 119802 },
-        { name: "𝖲𝖺𝗇𝗌 𝖲𝖾𝗋𝗂𝖿", caps: 120224, low: 120218 }
-    ];
-
-    const loader = document.getElementById('salim-loader');
-    const outputZone = document.getElementById('output-zone');
-    const authModal = document.getElementById('auth-modal');
-
-    function updateAuthUI() {
-        const userDisplay = document.getElementById('user-display');
-        const authAction = document.getElementById('auth-action-area');
-        if(currentUser) {
-            userDisplay.innerHTML = `<span>👤 ${currentUser.name}</span> <span class="credit-badge">${currentUser.credits} Credits Left</span>`;
-            authAction.innerHTML = `<button class="btn-login" style="background:#ef4444; color:#fff;" onclick="logoutUser()">Logout</button>`;
-        } else {
-            userDisplay.innerHTML = `<span>Guest Viewer</span>`;
-            authAction.innerHTML = `<button class="btn-login" onclick="triggerLoginGate()">Google Sign-In</button>`;
-        }
-    }
-
-    function checkUserGate() {
-        if(!currentUser) { authModal.style.display = 'flex'; return false; }
-        if(currentUser.credits <= 0) { alert("Oops! Credits over."); return false; }
-        return true;
-    }
-
-    function triggerLoginGate() { playPremiumClick(); authModal.style.display = 'flex'; }
-    function closeAuthModal() { playPremiumClick(); authModal.style.display = 'none'; }
-    function simulateGoogleLogin() {
-        playPremiumClick();
-        currentUser = { name: "Salim Coder", credits: 3 };
-        localStorage.setItem('salim_user', JSON.stringify(currentUser));
-        updateAuthUI();
-        authModal.style.display = 'none';
-    }
-    function logoutUser() {
-        playPremiumClick(); currentUser = null; localStorage.removeItem('salim_user');
-        updateAuthUI(); outputZone.style.display = 'none';
-    }
-    function consumeCredit() {
-        if(currentUser) {
-            currentUser.credits--;
-            localStorage.setItem('salim_user', JSON.stringify(currentUser));
-            updateAuthUI();
-        }
-    }
-
-    function switchPage(pageId, btn) {
-        playPremiumClick();
-        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-section'));
-        document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active-page'));
-        outputZone.style.display = 'none';
-        document.getElementById(pageId).classList.add('active-section');
-        btn.classList.add('active-page');
-    }
-
-    function switchTab(tabId, parentId) {
-        playPremiumClick();
-        const parent = document.getElementById(parentId);
-        parent.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-        parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        outputZone.style.display = 'none';
-        document.getElementById(tabId).classList.add('active');
-        if(window.event && window.event.currentTarget) {
-            window.event.currentTarget.classList.add('active');
-        }
-    }
-
-    // 1. SMART TAGS ENGINE
-    function runSmartTagsEngine() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const topic = document.getElementById('tag-topic-input').value.trim();
-        if(!topic) return alert("Topic field empty!");
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            let coreTags = []; cachedBackupTags = [];
-            for(let i=1; i<=210; i++) {
-                let txt = `${topic} ${i==1?'Pro':(i==2?'Viral':(i==3?'SEO':'Pack_'+i))}`;
-                if(i <= 10) coreTags.push(txt);
-                cachedBackupTags.push(txt);
-            }
-            outputZone.innerHTML = `
-                <div>
-                    <div class="section-header"><span class="section-label">Top 10 Immediate Hot Tags</span><button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="copyFullBackupTags(this)">EXPORT ALL 200 HIDDEN TAGS</button></div>
-                    <div class="tag-cloud" style="margin-top:15px;">${coreTags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                </div>`;
-            outputZone.style.display = 'block';
-        }, 1000);
-    }
-    function copyFullBackupTags(btn) {
-        playPremiumClick(); if(cachedBackupTags.length === 0) return;
-        navigator.clipboard.writeText(cachedBackupTags.join(', '));
-        btn.innerText = "ALL 200 COPIED!"; setTimeout(() => btn.innerText = "EXPORT ALL 200 HIDDEN TAGS", 1500);
-    }
-
-    // 2. CATCHY TITLE TRANSFORMER ENGINE
-    function runTitleTransformerEngine() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const rawTitle = document.getElementById('boring-title-input').value.trim();
-        if(!rawTitle) return alert("Please type a long title first!");
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            let visibleTitles = [
-                `😱 This ${rawTitle} Changes Everything!`,
-                `Stop Doing This! (${rawTitle} Guide)`,
-                `I Tried ${rawTitle} For 24 Hours!`,
-                `The Secret Behind ${rawTitle} 🤫`,
-                `Before You Buy ${rawTitle} - WATCH THIS!`
-            ];
-            cachedBackupTitles = [];
-            for(let i=1; i<=205; i++) {
-                cachedBackupTitles.push(`Variant ${i}: Viral Hook on ${rawTitle} (Format Code #${100+i})`);
-            }
-            let html = `
-                <div class="section-header">
-                    <span class="section-label">Top 5 Catchy Conversions</span>
-                    <button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="copyFullBackupTitles(this)">EXPORT ALL 200 VARIANTS</button>
-                </div>`;
-            visibleTitles.forEach((t, idx) => {
-                html += `<div class="font-item"><span class="font-text" id="t-catch-${idx}">${t}</span><button class="copy-btn" onclick="copyGenericText('t-catch-${idx}', this)">COPY</button></div>`;
-            });
-            outputZone.innerHTML = html; outputZone.style.display = 'block';
-        }, 1000);
-    }
-    function copyFullBackupTitles(btn) {
-        playPremiumClick(); if(cachedBackupTitles.length === 0) return;
-        navigator.clipboard.writeText(cachedBackupTitles.join('\n'));
-        btn.innerText = "ALL 200 COPIED!"; setTimeout(() => btn.innerText = "EXPORT ALL 200 VARIANTS", 1500);
-    }
-
-    // 3. DESCRIPTION ARCHITECT
-    function runDescriptionEngine() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const title = document.getElementById('desc-title').value.trim();
-        if(!title) return alert("Title missing!");
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            const compiledDesc = `👋 Hey guys! In this video, we dive deep into "${title}". Make sure to subscribe and drop a comment below!\n\n📌 TIMESTAMPS:\n0:00 Introduction\n2:15 Main Topic Breakdown\n5:40 Advanced Pro Tips\n8:20 Final Thoughts & Outro\n\n🔥 Watch next: [Insert Link]`;
-            outputZone.innerHTML = `
-                <div class="section-header"><span class="section-label">Structured Outline Generated</span><button class="copy-btn" onclick="copyGenericText('desc-raw-out', this)">COPY DESCRIPTION</button></div>
-                <textarea id="desc-raw-out" rows="8" style="margin-top:10px; background:rgba(0,0,0,0.3); resize:none;" readonly>${compiledDesc}</textarea>`;
-            outputZone.style.display = 'block';
-        }, 1000);
-    }
-
-    // 4. THUMBNAIL GRABBER (SHORTS + ENHANCE)
-    function runThumbnailGrabber() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const url = document.getElementById('thumb-url').value.trim();
-        if(!url) return alert("Please enter video link!");
-        let vid = "";
+        <button class="ai-dropdown-btn" onclick="toggleAIMenu()">
+            <span>✨ AI Features</span> ▾
+        </button>
         
-        if(url.includes("shorts/")) {
-            vid = url.split("shorts/")[1]?.split("?")[0]?.split("&")[0];
-        } else if(url.includes("v=")) {
-            vid = url.split("v=")[1]?.split("&")[0];
-        } else if(url.includes("youtu.be/")) {
-            vid = url.split("youtu.be/")[1]?.split("?")[0];
+        <div class="ai-menu" id="aiMenu">
+            <button onclick="openSection('ai-script')">🎬 YT Script Writer</button>
+            <button onclick="openSection('ai-tags')">🏷️ Smart Tag Generator</button>
+            <button onclick="openSection('ai-chat')">💬 Salim AI Chatbot</button>
+            <button onclick="openSection('ai-grammar')">✍️ Grammar Fixer</button>
+            <button onclick="openSection('ai-shayari')">🔥 Shayari & Status</button>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="btn-mail" onclick="openSection('temp-mail')">✉ Temp Mail</button>
+        <button class="tab-btn" id="btn-fonts" onclick="openSection('fonts-ai')">🎨 AI Fonts</button>
+    </div>
+
+    <div id="temp-mail" class="section active">
+        <h3>✉️ AI Smart Temp Mail</h3>
+        <p class="desc">Gemini AI aapki profile ke mutabik smart domain name generate karega.</p>
+        <input type="text" id="mailUser" placeholder="Enter your nick name (e.g., salim, vishal)...">
+        <button class="btn" onclick="generateAIMail()">Generate AI Mail</button>
+        <div class="output-box" id="mailOutput" style="text-align:center; font-weight:bold; color:#38bdf8; font-size:16px;">Click button to generate</div>
+    </div>
+
+    <div id="fonts-ai" class="section">
+        <h3>🎨 AI Font Assistant</h3>
+        <p class="desc">Apne video ya thumbnail ka topic batao, AI sabse best fonts batayega.</p>
+        <input type="text" id="fontTopic" placeholder="e.g., Gaming Thumbnail, Sad Shayari Video...">
+        <button class="btn" onclick="getAIFonts()">Ask AI For Fonts</button>
+        <div id="fontOutput" style="margin-top:15px;"></div>
+    </div>
+
+    <div id="ai-script" class="section">
+        <h3>🎬 AI YouTube Script Writer</h3>
+        <p class="desc">Kisi bhi video ka topic likhein, AI poori script likh kar dega.</p>
+        <input type="text" id="scriptTopic" placeholder="e.g., Top 5 Unknown Facts about Gaming...">
+        <button class="btn btn-ai" onclick="generateScript()">Write Full Script</button>
+        <div class="output-box" id="scriptOutput">Your AI script will appear here...</div>
+    </div>
+
+    <div id="ai-tags" class="section">
+        <h3>🏷️ AI Viral Tags Generator</h3>
+        <p class="desc">Video Viral karne wale trending SEO tags paayein.</p>
+        <input type="text" id="tagTopic" placeholder="e.g., How to viral shorts video...">
+        <button class="btn btn-ai" onclick="generateTags()">Generate Viral Tags</button>
+        <div class="output-box" id="tagsOutput">Tags will appear here...</div>
+    </div>
+
+    <div id="ai-chat" class="section">
+        <h3>💬 Salim Smart AI Chatbot</h3>
+        <p class="desc">Apne kisi bhi sawal ka jawab turant paayein.</p>
+        <input type="text" id="chatQuery" placeholder="Ask me anything...">
+        <button class="btn btn-ai" onclick="askChatbot()">Ask AI</button>
+        <div class="output-box" id="chatOutput">Chatbot response...</div>
+    </div>
+
+    <div id="ai-grammar" class="section">
+        <h3>✍️ AI Smart Text Fixer</h3>
+        <p class="desc">Apni tooti-footi English ya Hindi text ko ekdum standard professional banayein.</p>
+        <textarea id="grammarText" rows="3" placeholder="Paste your text here to fix errors..."></textarea>
+        <button class="btn btn-ai" onclick="fixGrammar()">Fix My Text</button>
+        <div class="output-box" id="grammarOutput">Corrected text will show here...</div>
+    </div>
+
+    <div id="ai-shayari" class="section">
+        <h3>🔥 AI Shayari & Attitude Status</h3>
+        <p class="desc">Apne mood ke hisab se ekdum jhakas brand-new Shayari likhwayein.</p>
+        <select id="shayariMood">
+            <option value="Attitude Boys">😎 Boys Attitude</option>
+            <option value="Broken Heart Sad">💔 Heart Broken Sad</option>
+            <option value="Inspirational Motivation">💪 Heavy Motivation</option>
+        </select>
+        <button class="btn btn-ai" onclick="generateShayari()">Write AI Shayari</button>
+        <div class="output-box" id="shayariOutput" style="font-style: italic; text-align: center; color: #f472b6;">Shayari will show here...</div>
+    </div>
+
+
+    <script>
+        function toggleAIMenu() {
+            const menu = document.getElementById('aiMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
-        if(!vid) vid = "dQw4w9WgXcQ"; 
-        
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            const targetImg = `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`;
-            outputZone.innerHTML = `
-                <div class="section-header">
-                    <span class="section-label">Rendered Studio File Master</span>
-                    <div style="display:flex; gap:8px;">
-                        <button class="copy-btn" style="background:#10b981; border:none;" onclick="enhanceThumbnailMatrix(this)">ENHANCE QUALITY (4K)</button>
-                        <button class="copy-btn" onclick="window.open('${targetImg}')">OPEN ORIGIN</button>
-                    </div>
-                </div>
-                <div class="thumb-wrap"><img id="thumb-img-node" src="${targetImg}" class="thumb-preview-img" onerror="this.src='https://img.youtube.com/vi/${vid}/mqdefault.jpg'"></div>`;
-            outputZone.style.display = 'block';
-        }, 1000);
-    }
-    function enhanceThumbnailMatrix(btn) {
-        playPremiumClick(); btn.innerText = "UPSCALING MATRIX...";
-        setTimeout(() => {
-            document.getElementById('thumb-img-node').classList.add('enhanced-mode');
-            btn.innerText = "ENHANCED TO 4K ULTRA HD! 🎉";
-        }, 1200);
-    }
 
-    // 5. URL SHORTENER
-    function runUrlCompressor() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const str = document.getElementById('long-url').value.trim();
-        if(!str) return alert("Long URL string needed!");
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            const microResult = `https://salim.io/lnkhub_${Math.floor(1000 + Math.random() * 9000)}`;
-            outputZone.innerHTML = `
-                <div class="section-header"><span class="section-label">Compressed Hash Complete</span><button class="copy-btn" onclick="copyGenericText('short-target', this)">COPY LINK</button></div>
-                <div class="font-item" style="margin-top:10px;"><span id="short-target" style="color:#a5b4fc; font-weight:600;">${microResult}</span></div>`;
-            outputZone.style.display = 'block';
-        }, 900);
-    }
-
-    // 6. TEMP EMAIL GENERATOR (UPGRADED: 100% INFINITE MATH VARIATIONS PIPELINE)
-    function generateTempMailEngine() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
+        function openSection(secId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             
-            // Mathematical dynamic random sequence string generator
-            const entropyStr = Math.random().toString(36).substring(2, 7) + Math.random().toString(36).substring(2, 6);
-            const dynamicNodes = ["cybernode", "shieldinbox", "vortexmail", "salimdev", "tempbox", "anoninbox", "cryptomesh"];
-            const extensions = ["xyz", "net", "org", "co", "live", "io"];
+            document.getElementById(secId).classList.add('active');
+            document.getElementById('aiMenu').style.display = 'none';
+
+            if(secId === 'temp-mail') document.getElementById('btn-mail').classList.add('active');
+            if(secId === 'fonts-ai') document.getElementById('btn-fonts').classList.add('active');
+        }
+
+        // Call Gemini API Function
+        async function callGemini(promptText) {
+            if(!permanentApiKey || permanentApiKey === "YAHAN_APNI_GEMINI_API_KEY_PASTE_KARO") {
+                alert("Bhai, pehle code me line 9 par apni Gemini API Key paste karo!");
+                return null;
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${permanentApiKey}`;
             
-            const chosenNode = dynamicNodes[Math.floor(Math.random() * dynamicNodes.length)];
-            const chosenExt = extensions[Math.floor(Math.random() * extensions.length)];
-            const ultimateUniqueEmail = `burner_${entropyStr}@${chosenNode}.${chosenExt}`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                });
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                return "Error: API Key galat hai ya net slow hai.";
+            }
+        }
 
-            outputZone.innerHTML = `
-                <div class="section-header">
-                    <span class="section-label">Infinite Burner Allocated</span>
-                    <button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="generateTempMailEngine()">REGENERATE MAIL 🔄</button>
-                </div>
-                <div class="font-item" style="margin-top:15px;">
-                    <span id="temp-email-string" style="color:#34d399; font-weight:700; font-size:1.2rem;">${ultimateUniqueEmail}</span>
-                    <button class="copy-btn" onclick="copyGenericText('temp-email-string', this)">COPY EMAIL</button>
-                </div>
-                <div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.02); border:1px dashed var(--border); border-radius:12px; font-size:0.85rem; color:var(--text-dim); text-align:center;">
-                    🕒 Continuous secure execution layer listening... Click Regenerate for a fresh unique email structure.
-                </div>`;
-            outputZone.style.display = 'block';
-        }, 950);
-    }
+        // 1. AI Mail
+        async function generateAIMail() {
+            const user = document.getElementById('mailUser').value || 'salim';
+            const out = document.getElementById('mailOutput');
+            out.innerText = "AI generating domain...";
+            const aiRes = await callGemini(`Generate 1 unique fictional domain extension name for temp mail using word "${user}". Output only the full clean email address, nothing else.`);
+            if(aiRes) out.innerText = aiRes.trim().toLowerCase();
+        }
 
-    // 7. UNICODE FONTS GENERATOR
-    const transformText = (text, offset) => {
-        return text.split('').map(char => {
-            const code = char.charCodeAt(0);
-            if (code >= 65 && code <= 90) return String.fromCodePoint(code - 65 + offset.caps);
-            if (code >= 97 && code <= 122) return String.fromCodePoint(code - 97 + offset.low);
-            return char;
-        }).join('');
-    };
-    function runFontGenerator() {
-        const txt = document.getElementById('normal-text').value;
-        if(!txt) { outputZone.style.display = 'none'; return; }
-        let html = `<div class="section-header"><span class="section-label">True Unicode Morph Matrix</span></div>`;
-        unicodeOffsets.forEach((st, idx) => {
-            let res = transformText(txt, st);
-            html += `<div class="font-item"><span class="font-text" id="f-${idx}">${res}</span><button class="copy-btn" onclick="triggerFontCopy('f-${idx}', this)">COPY</button></div>`;
-        });
-        outputZone.innerHTML = html; outputZone.style.display = 'block';
-    }
-    function regenerateUnicodeStyles() {
-        playPremiumClick();
-        const basePool = [
-            { name: "𝔊𝔬𝔱𝔥𝔦𝔠", caps: 120172, low: 120166 },
-            { name: "𝓒𝓾𝓻𝓼𝓲𝓿", caps: 119964, low: 119958 },
-            { name: "𝕄𝕒𝕥𝕙 𝔻𝕠𝕦𝕓𝕝𝕖", caps: 120120, low: 120114 },
-            { name: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄", caps: 119808, low: 119802 },
-            { name: "𝖲𝖺𝗇𝗌 𝖲𝖾𝗋𝗂𝖿", caps: 120224, low: 120218 },
-            { name: "ⓂⓄⓃⓄⓈⓅⒶⒸⒺ", caps: 12462, low: 12462 },
-            { name: "Bold Structural", caps: 119730, low: 119724 },
-            { name: "𝔖𝔠..." , caps: 120016, low: 120010 }
-        ];
-        unicodeOffsets = basePool.sort(() => 0.5 - Math.random()).slice(0, 5);
-        runFontGenerator();
-    }
-    function triggerFontCopy(id, btn) {
-        playPremiumClick(); if(!checkUserGate()) return;
-        navigator.clipboard.writeText(document.getElementById(id).innerText);
-        btn.innerText = "COPIED!"; consumeCredit(); setTimeout(() => btn.innerText = "COPY", 1200);
-    }
+        // 2. AI Fonts
+        async function getAIFonts() {
+            const topic = document.getElementById('fontTopic').value;
+            const div = document.getElementById('fontOutput');
+            div.innerHTML = "<p>AI searching trends...</p>";
+            const res = await callGemini(`List 3 specific fonts suitable for: ${topic}. Give output in this format: FontName - Short Reason. Do not give extra text.`);
+            if(res) {
+                div.innerHTML = "";
+                res.split('\n').forEach(f => {
+                    if(f.trim()) {
+                        div.innerHTML += `<div class="font-item"><span>${f}</span><button style="padding:6px; background:#a855f7; border:none; color:white; border-radius:5px; font-weight:bold;" onclick="window.open('https://www.dafont.com/search.php?q=${f.split('-')[0].trim()}', '_blank')">Find</button></div>`;
+                    }
+                });
+            }
+        }
 
-    // 8. FONTS DOWNLOADER (UPGRADED: TYPES TO LIVE GENERATE AND DOWNLOAD ANY FONT DEVIATION)
-    function searchFontsEngine() {
-        const rawQuery = document.getElementById('font-search-input').value.trim();
-        if(!rawQuery) { outputZone.style.display = 'none'; return; }
-        
-        const queryLower = rawQuery.toLowerCase();
-        // Parse from master collection list first
-        let filteredResults = MASTER_FONTS_DB.filter(f => f.name.toLowerCase().includes(queryLower)).slice(0, 5);
-        
-        // Auto-inject an exact matching custom vector for WHATEVER they typed!
-        const exactCustomFont = {
-            id: 9999,
-            name: `${rawQuery} Premium Custom`,
-            size: "3.4 MB",
-            format: "TrueType Vector (.ttf)"
-        };
-        
-        let html = `<div class="section-header"><span class="section-label">Dynamic Word Compile Layout</span></div>`;
-        
-        // Render typed choice prominently
-        html += `
-        <div class="font-item" style="border: 1px dashed #a855f7; background: rgba(168, 85, 247, 0.04);">
-            <div>
-                <div style="font-weight:800; font-size:1.15rem; color:#fff;">✨ ${exactCustomFont.name}</div>
-                <div style="font-size:0.8rem; color:var(--text-dim); margin-top:4px;">Custom Rendered Vector Package | Size: ${exactCustomFont.size}</div>
-            </div>
-            <button class="copy-btn" style="background:var(--accent-gradient); border:none;" onclick="triggerFontDownloadSimulation('${exactCustomFont.name}', this)">DOWNLOAD DYNAMIC .TTF</button>
-        </div>`;
+        // 3. AI Script
+        async function generateScript() {
+            const t = document.getElementById('scriptTopic').value;
+            const out = document.getElementById('scriptOutput');
+            out.innerText = "AI is thinking and writing script...";
+            const res = await callGemini(`Write a catchy YouTube video script in Hinglish about: ${t}. Include intro, body points and outro.`);
+            if(res) out.innerText = res;
+        }
 
-        // Render complementary sheets from registry logs
-        filteredResults.forEach(f => {
-            html += `
-            <div class="font-item">
-                <div>
-                    <div style="font-weight:700; font-size:1.1rem; color:#cbd5e1;">${f.name}</div>
-                    <div style="font-size:0.8rem; color:var(--text-dim); margin-top:4px;">File Structure Base Stack | Size: ${f.size}</div>
-                </div>
-                <button class="copy-btn" style="background:rgba(255,255,255,0.05); border:1px solid var(--border);" onclick="triggerFontDownloadSimulation('${f.name}', this)">DOWNLOAD .TTF</button>
-            </div>`;
-        });
-        
-        outputZone.innerHTML = html; outputZone.style.display = 'block';
-    }
+        // 4. AI Tags
+        async function generateTags() {
+            const t = document.getElementById('tagTopic').value;
+            const out = document.getElementById('tagsOutput');
+            out.innerText = "Hunting viral tags...";
+            const res = await callGemini(`Give 15 viral search tags comma separated for YouTube video: ${t}. Only output tags.`);
+            if(res) out.innerText = res;
+        }
 
-    function triggerFontDownloadSimulation(name, btn) {
-        playPremiumClick(); if(!checkUserGate()) return;
-        btn.innerText = "PACKAGING TTF VECTOR...";
-        consumeCredit();
-        setTimeout(() => {
-            btn.innerText = "STREAMING FILE...";
-            setTimeout(() => {
-                const vectorDummySeed = "TrueType Font Matrix Generated Exclusively Via Salim Studio Core Engine Platform Infrastructure.";
-                const blob = new Blob([vectorDummySeed], { type: "application/x-font-ttf" });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = `${name.replace(/\s+/g, '_')}_Package.ttf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                btn.innerText = "COMPILED & DOWNLOADED! ✔";
-                setTimeout(() => btn.innerText = btn.innerText.includes("DYNAMIC") ? "DOWNLOAD DYNAMIC .TTF" : "DOWNLOAD .TTF", 2000);
-            }, 1000);
-        }, 800);
-    }
+        // 5. Chatbot
+        async function askChatbot() {
+            const q = document.getElementById('chatQuery').value;
+            const out = document.getElementById('chatOutput');
+            out.innerText = "Salim AI responding...";
+            const res = await callGemini(`Answer this query friendly in hinglish short text: ${q}`);
+            if(res) out.innerText = res;
+        }
 
-    // 9. USERNAME AUDITOR
-    function runUsernameAuditor() {
-        playPremiumClick(); if(!checkUserGate()) return;
-        const name = document.getElementById('check-username').value.trim();
-        if(!name) return alert("Enter username!");
-        outputZone.style.display = 'none'; loader.style.display = 'block';
-        setTimeout(() => {
-            loader.style.display = 'none'; consumeCredit();
-            const s1 = Math.random() > 0.4 ? "🟢 Available" : "🔴 Claimed";
-            const s2 = Math.random() > 0.3 ? "🟢 Available" : "🔴 Claimed";
-            outputZone.innerHTML = `
-                <div class="section-header"><span class="section-label">Identity Allocation Logs</span></div>
-                <div class="font-item"><span>Instagram Account (@${name})</span><span style="font-weight:700;">${s1}</span></div>
-                <div class="font-item"><span>GitHub Developer (@${name})</span><span style="font-weight:700;">${s2}</span></div>`;
-            outputZone.style.display = 'block';
-        }, 1100);
-    }
+        // 6. Fix Grammar
+        async function fixGrammar() {
+            const t = document.getElementById('grammarText').value;
+            const out = document.getElementById('grammarOutput');
+            out.innerText = "Fixing errors...";
+            const res = await callGemini(`Correct any grammar or spelling mistakes in this text and provide only the clean professional version: ${t}`);
+            if(res) out.innerText = res;
+        }
 
-    function copyGenericText(id, btn) {
-        playPremiumClick();
-        const node = document.getElementById(id);
-        const value = node.value ? node.value : node.innerText;
-        navigator.clipboard.writeText(value);
-        btn.innerText = "COPIED!"; setTimeout(() => btn.innerText = "COPY", 1200);
-    }
-
-    updateAuthUI();
-</script>
+        // 7. Shayari
+        async function generateShayari() {
+            const mood = document.getElementById('shayariMood').value;
+            const out = document.getElementById('shayariOutput');
+            out.innerText = "Shayar AI writing...";
+            const res = await callGemini(`Write a powerful 2-line shayari/status in Hindi/Hinglish font about: ${mood}. No commentary.`);
+            if(res) out.innerText = res;
+        }
+    </script>
 </body>
-    </html>
+</html>
